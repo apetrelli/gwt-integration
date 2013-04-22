@@ -1,0 +1,61 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style>
+		.sideBySide {
+			float: left;
+		}
+		.buttonBlock {
+			display: block;
+			width: 9em;
+			margin-left: 0.5em;
+			margin-right: 0.5em;
+		}
+		.leftOuterBlock {
+			width:50%;
+			float:left;
+			margin-right:-5em;
+   		}
+		.leftBlock {
+			margin-right: 5em;
+  		}
+		.centerBlock {
+			width: 10em;
+			float: left;
+		}
+		.rightOuterBlock {
+			width: 50%;
+			float: right;
+			margin-left: -5em;
+		}
+		.rightBlock {
+			margin-left: 5em;
+		}
+		.maximumWidth {
+			width: 100%
+		}
+	</ui:style>
+	<g:FlowPanel>
+		<g:FlowPanel addStyleNames="{style.leftOuterBlock}">
+			<g:FlowPanel addStyleNames="{style.leftBlock}">
+				<g:Label ui:field="leftTitle" />
+				<c:CellTable ui:field="selectableTable" addStyleNames="{style.maximumWidth}" />
+				<c:SimplePager ui:field="selectablePager" location="CENTER" />
+			</g:FlowPanel>
+		</g:FlowPanel>
+		<g:FlowPanel  addStyleNames="{style.centerBlock}">
+			<g:Button ui:field="add" text="Add &gt;" addStyleNames="{style.buttonBlock}" />
+			<g:Button ui:field="remove" text="&lt; Remove" addStyleNames="{style.buttonBlock}" />
+			<g:Button ui:field="addAll" text="Add all &gt;&gt;" addStyleNames="{style.buttonBlock}" />
+			<g:Button ui:field="removeAll" text="&lt;&lt; Remove all" addStyleNames="{style.buttonBlock}" />
+		</g:FlowPanel>
+		<g:FlowPanel addStyleNames="{style.rightOuterBlock}">
+			<g:FlowPanel addStyleNames="{style.rightBlock}">
+				<g:Label ui:field="rightTitle" />
+				<c:CellTable ui:field="selectedTable" addStyleNames="{style.maximumWidth}" />
+				<c:SimplePager ui:field="selectedPager" location="CENTER" />
+			</g:FlowPanel>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

@@ -1,0 +1,22 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+  xmlns:g="urn:import:com.google.gwt.user.client.ui">
+  <ui:style>
+    .important {
+    	font-weight: bold;
+    }
+  </ui:style>
+  <g:LayoutPanel width="79em" height="30em">
+    <g:layer left="0" width="100%" top="0" height="3em">
+      <g:Label>Error Message</g:Label>
+    </g:layer>
+    <g:layer left="0" width="100%" top="3em" bottom="2em">
+      <g:ScrollPanel height="100%" width="100%">
+        <g:Label ui:field="message" />
+      </g:ScrollPanel>
+    </g:layer>
+    <g:layer left="10em" right="10em" height="2em" bottom="0">
+      <g:Button width="100%" ui:field="dismiss">Dismiss</g:Button>
+    </g:layer>
+  </g:LayoutPanel>
+</ui:UiBinder>
