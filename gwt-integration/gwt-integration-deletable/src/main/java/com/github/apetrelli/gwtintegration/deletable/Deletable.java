@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.jpa;
+package com.github.apetrelli.gwtintegration.deletable;
 
 /**
  * Indicates an object that can be deleted.

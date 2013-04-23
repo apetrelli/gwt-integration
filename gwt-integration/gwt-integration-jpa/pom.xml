@@ -18,6 +18,11 @@
 			<artifactId>hibernate-jpa-2.0-api</artifactId>
 			<version>1.0.1.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.apetrelli.gwtintegration</groupId>
+			<artifactId>gwt-integration-deletable</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

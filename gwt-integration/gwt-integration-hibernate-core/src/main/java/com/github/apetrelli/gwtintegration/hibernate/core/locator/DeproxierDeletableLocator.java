@@ -1,8 +1,9 @@
-package com.github.apetrelli.gwtintegration.web.server.gwt;
+package com.github.apetrelli.gwtintegration.hibernate.core.locator;
 
 import org.hibernate.proxy.HibernateProxy;
 
-import com.github.apetrelli.gwtintegration.jpa.Deletable;
+import com.github.apetrelli.gwtintegration.deletable.Deletable;
+import com.github.apetrelli.gwtintegration.deletable.locator.DeletableLocator;
 
 /**
  * A locator that manages {@link Deletable} elements and deproxies Hibernate proxies.

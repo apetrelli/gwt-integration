@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.apetrelli.gwtintegration</groupId>
+		<artifactId>gwt-integration</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>gwt-integration-web-deletable</artifactId>
+	<name>GWT Integration - Deletable</name>
+	<description>Integration of GWT with "deletable" objects for performance reasons.</description>
+	<dependencies>
+		<dependency>
+			<groupId>com.github.apetrelli.gwtintegration</groupId>
+			<artifactId>gwt-integration-deletable</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+	</dependencies>
+</project>

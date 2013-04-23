@@ -26,6 +26,9 @@
 		<module>gwt-integration-spring-data-jpa</module>
 		<module>gwt-integration-hibernate-validator</module>
 		<module>gwt-integration-hibernate-entitymanager</module>
+		<module>gwt-integration-hibernate-core</module>
+		<module>gwt-integration-web-deletable</module>
+		<module>gwt-integration-deletable</module>
 	</modules>
 	<build>
 		<plugins>

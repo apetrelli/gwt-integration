@@ -1,6 +1,6 @@
-package com.github.apetrelli.gwtintegration.web.server.gwt;
+package com.github.apetrelli.gwtintegration.deletable.locator;
 
-import com.github.apetrelli.gwtintegration.jpa.Deletable;
+import com.github.apetrelli.gwtintegration.deletable.Deletable;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
 /**
