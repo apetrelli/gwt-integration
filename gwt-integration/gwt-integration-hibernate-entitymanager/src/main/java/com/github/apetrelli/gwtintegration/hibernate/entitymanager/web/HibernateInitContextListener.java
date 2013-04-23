@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.hibernate;
+package com.github.apetrelli.gwtintegration.hibernate.entitymanager.web;
 
 import java.util.ArrayList;
 import java.util.List;
