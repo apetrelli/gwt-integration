@@ -1,7 +1,5 @@
 package com.github.apetrelli.gwtintegration.web.server.gwt;
 
-import org.hibernate.proxy.HibernateProxy;
-
 import com.github.apetrelli.gwtintegration.jpa.Deletable;
 import com.google.web.bindery.requestfactory.shared.Locator;
 
@@ -19,15 +17,9 @@ public abstract class DeletableLocator<T extends Deletable, I> extends
 		return domainObject != null && !domainObject.isDeleted();
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public T find(Class<? extends T> clazz, I id) {
-		T retValue = find(id);
-		if (retValue instanceof HibernateProxy) {
-			HibernateProxy proxy = (HibernateProxy) retValue;
-			retValue = (T) proxy.writeReplace();
-		}
-		return retValue;
+		return find(id);
 	}
 
 	public abstract T find(I id);

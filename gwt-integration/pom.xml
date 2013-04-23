@@ -24,6 +24,7 @@
 		<module>gwt-integration-web</module>
 		<module>gwt-integration-service</module>
 		<module>gwt-integration-spring-data-jpa</module>
+		<module>gwt-integration-hibernate-validator</module>
 	</modules>
 	<build>
 		<plugins>

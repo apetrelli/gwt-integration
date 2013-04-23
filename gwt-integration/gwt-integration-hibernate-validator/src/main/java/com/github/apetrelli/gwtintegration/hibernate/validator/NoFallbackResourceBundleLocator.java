@@ -1,5 +1,5 @@
 // $Id: NoFallbackResourceBundleLocator.java 19573 2010-05-20 22:13:26Z hardy.ferentschik $
-package com.github.apetrelli.gwtintegration.web.server.validation;
+package com.github.apetrelli.gwtintegration.hibernate.validator;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
