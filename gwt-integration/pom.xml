@@ -29,6 +29,8 @@
 		<module>gwt-integration-hibernate-core</module>
 		<module>gwt-integration-web-deletable</module>
 		<module>gwt-integration-deletable</module>
+		<module>gwt-integration-spring-security</module>
+		<module>gwt-integration-requestfactory</module>
 	</modules>
 	<build>
 		<plugins>
