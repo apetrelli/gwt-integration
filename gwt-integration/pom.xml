@@ -35,6 +35,7 @@
 		<module>gwt-integration-spring-web</module>
 		<module>gwt-integration-locale</module>
 		<module>gwt-integration-remote-logging</module>
+		<module>gwt-integration-editor</module>
 	</modules>
 	<build>
 		<plugins>
