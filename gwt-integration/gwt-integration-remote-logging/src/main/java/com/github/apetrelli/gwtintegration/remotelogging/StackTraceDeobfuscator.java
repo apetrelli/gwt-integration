@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.gwt;
+package com.github.apetrelli.gwtintegration.remotelogging;
 
 import java.io.IOException;
 import java.io.InputStream;

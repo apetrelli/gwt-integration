@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.gwt;
+package com.github.apetrelli.gwtintegration.remotelogging;
 
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
