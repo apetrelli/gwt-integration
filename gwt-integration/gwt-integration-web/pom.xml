@@ -30,11 +30,6 @@
 			<version>20090211</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.0.0.GA</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<resources>
