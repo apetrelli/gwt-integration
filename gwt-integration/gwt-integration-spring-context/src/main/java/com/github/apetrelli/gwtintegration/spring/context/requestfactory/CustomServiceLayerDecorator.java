@@ -1,15 +1,14 @@
-package com.github.apetrelli.gwtintegration.spring;
+package com.github.apetrelli.gwtintegration.spring.context.requestfactory;
 
-import javax.servlet.ServletContext;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.groups.Default;
 
-import com.github.apetrelli.gwtintegration.requestfactory.ServletContextHolder;
+import org.springframework.context.ApplicationContext;
+
+import com.github.apetrelli.gwtintegration.spring.context.ApplicationContextHolderLocator;
 import com.google.web.bindery.requestfactory.server.ServiceLayerDecorator;
 import com.google.web.bindery.requestfactory.shared.Locator;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  * Extension of ServiceLayerDecorator.
@@ -24,19 +23,15 @@ public class CustomServiceLayerDecorator extends ServiceLayerDecorator {
 	 * Constructor.
 	 */
 	public CustomServiceLayerDecorator() {
-	}
-	
-	public void setServletContext(ServletContext servletContext) {
-		validator = WebApplicationContextUtils
-				.getWebApplicationContext(servletContext)
-				.getBean(ValidatorFactory.class).getValidator();
+		validator = ApplicationContextHolderLocator.getHolder()
+				.getApplicationContext().getBean(ValidatorFactory.class)
+				.getValidator();
 	}
 
 	@Override
 	public <T extends Locator<?, ?>> T createLocator(Class<T> clazz) {
-		ApplicationContext context = WebApplicationContextUtils
-				.getWebApplicationContext(ServletContextHolder
-						.getServletContext());
+		ApplicationContext context = ApplicationContextHolderLocator
+				.getHolder().getApplicationContext();
 		return context.getBean(clazz);
 	}
 	

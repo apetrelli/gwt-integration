@@ -1,6 +1,5 @@
 package com.github.apetrelli.gwtintegration.spring.security;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +11,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 
 import com.github.apetrelli.gwtintegration.requestfactory.RequestFactoryServlet;
-import com.github.apetrelli.gwtintegration.spring.CustomServiceLayerDecorator;
+import com.github.apetrelli.gwtintegration.spring.context.requestfactory.CustomServiceLayerDecorator;
 import com.google.web.bindery.requestfactory.server.ExceptionHandler;
 import com.google.web.bindery.requestfactory.server.ServiceLayerDecorator;
 import com.google.web.bindery.requestfactory.server.SimpleRequestProcessor;
@@ -23,8 +22,6 @@ import com.google.web.bindery.requestfactory.server.SimpleRequestProcessor;
  */
 public class SecureRequestFactoryServlet extends RequestFactoryServlet {
 	private static final long serialVersionUID = 1L;
-
-	private CustomServiceLayerDecorator decorator;
 	
 	private SessionAuthenticationStrategy strategy;
 	
@@ -48,14 +45,8 @@ public class SecureRequestFactoryServlet extends RequestFactoryServlet {
 	public SecureRequestFactoryServlet(ExceptionHandler exceptionHandler,
 			ServiceLayerDecorator... serviceDecorators) {
 		super(exceptionHandler, serviceDecorators);
-		decorator = (CustomServiceLayerDecorator) serviceDecorators[0];
 		strategy = new SessionFixationProtectionStrategy();
 		authenticationTrustResolver = new AuthenticationTrustResolverImpl();
-	}
-
-	@Override
-	public void init() throws ServletException {
-		decorator.setServletContext(getServletContext());
 	}
 
 	protected String process(SimpleRequestProcessor processor,

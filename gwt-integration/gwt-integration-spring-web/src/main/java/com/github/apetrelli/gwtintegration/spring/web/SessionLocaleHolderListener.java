@@ -1,10 +1,9 @@
-package com.github.apetrelli.gwtintegration.web.server.web;
+package com.github.apetrelli.gwtintegration.spring.web;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.github.apetrelli.gwtintegration.web.server.locale.LocaleLocator;
-import com.github.apetrelli.gwtintegration.web.server.locale.SessionLocaleHolder;
 
 public class SessionLocaleHolderListener implements ServletContextListener {
 

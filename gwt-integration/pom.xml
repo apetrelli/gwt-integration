@@ -31,6 +31,9 @@
 		<module>gwt-integration-deletable</module>
 		<module>gwt-integration-spring-security</module>
 		<module>gwt-integration-requestfactory</module>
+		<module>gwt-integration-spring-context</module>
+		<module>gwt-integration-spring-web</module>
+		<module>gwt-integration-locale</module>
 	</modules>
 	<build>
 		<plugins>

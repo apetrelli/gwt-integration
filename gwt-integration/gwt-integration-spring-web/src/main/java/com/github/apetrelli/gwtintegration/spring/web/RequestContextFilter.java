@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.spring;
+package com.github.apetrelli.gwtintegration.spring.web;
 
 
 import java.io.IOException;

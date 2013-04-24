@@ -1,10 +1,12 @@
-package com.github.apetrelli.gwtintegration.web.server.locale;
+package com.github.apetrelli.gwtintegration.spring.web;
 
 import java.util.Locale;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
+
+import com.github.apetrelli.gwtintegration.web.server.locale.LocaleHolder;
 
 @Component
 public class SessionLocaleHolder implements LocaleHolder {
