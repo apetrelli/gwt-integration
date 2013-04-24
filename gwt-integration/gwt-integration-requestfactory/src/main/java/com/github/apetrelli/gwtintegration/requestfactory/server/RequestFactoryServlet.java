@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.requestfactory;
+package com.github.apetrelli.gwtintegration.requestfactory.server;
 
 import java.io.IOException;
 import java.io.PrintWriter;

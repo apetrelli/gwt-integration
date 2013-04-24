@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.client.requestfactory;
+package com.github.apetrelli.gwtintegration.requestfactory.client;
 
 import com.google.web.bindery.event.shared.EventBus;
 import com.google.web.bindery.requestfactory.gwt.client.DefaultRequestTransport;

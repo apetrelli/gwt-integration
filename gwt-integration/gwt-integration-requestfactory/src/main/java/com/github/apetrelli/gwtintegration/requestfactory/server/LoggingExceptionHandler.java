@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.requestfactory;
+package com.github.apetrelli.gwtintegration.requestfactory.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

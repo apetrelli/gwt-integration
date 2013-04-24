@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.client.requestfactory;
+package com.github.apetrelli.gwtintegration.requestfactory.client;
 
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.event.shared.EventHandler;
