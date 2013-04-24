@@ -36,6 +36,7 @@
 		<module>gwt-integration-locale</module>
 		<module>gwt-integration-remote-logging</module>
 		<module>gwt-integration-editor</module>
+		<module>gwt-integration-mvp</module>
 	</modules>
 	<build>
 		<plugins>

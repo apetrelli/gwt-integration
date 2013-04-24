@@ -35,6 +35,11 @@
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.apetrelli.gwtintegration</groupId>
+			<artifactId>gwt-integration-mvp</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

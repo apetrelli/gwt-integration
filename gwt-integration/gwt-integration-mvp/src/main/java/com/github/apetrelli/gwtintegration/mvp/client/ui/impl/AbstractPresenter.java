@@ -1,7 +1,7 @@
-package com.github.apetrelli.gwtintegration.web.client.ui.impl;
+package com.github.apetrelli.gwtintegration.mvp.client.ui.impl;
 
 
-import com.github.apetrelli.gwtintegration.web.client.ui.MvpView;
+import com.github.apetrelli.gwtintegration.mvp.client.ui.MvpView;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
