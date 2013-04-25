@@ -19,6 +19,12 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
+	<scm>
+		<url>scm:git:https://github.com/apetrelli/gwt-integration</url>
+		<connection>scm:git:git://github.com/apetrelli/gwt-integration.git</connection>
+		<developerConnection>scm:git:https://github.com/apetrelli/gwt-integration.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 	<modules>
 		<module>gwt-integration-jpa</module>
 		<module>gwt-integration-web</module>

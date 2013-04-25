@@ -9,6 +9,12 @@
 	<artifactId>gwt-integration-hibernate-validator</artifactId>
 	<name>GWT Integration - Hibernate Validator</name>
 	<description>Code to integrate Hibernate Validator and GWT to work correctly together.</description>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License 2.1</name>
+			<url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</url>
+		</license>
+	</licenses>
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>
