@@ -39,6 +39,7 @@
 		<module>gwt-integration-mvp</module>
 		<module>gwt-integration-widget</module>
 		<module>gwt-integration-cellview</module>
+		<module>gwt-integration-error</module>
 	</modules>
 	<build>
 		<plugins>

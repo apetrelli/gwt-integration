@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.client.error;
+package com.github.apetrelli.gwtintegration.error.client.widget;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
