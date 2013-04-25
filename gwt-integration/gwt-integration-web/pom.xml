@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>gwt-integration-web</artifactId>
-	<name>Sample GWT runtime library</name>
-	<description>Some classes for a correct runtime.</description>
+	<name>GWT Integration - Web</name>
+	<description>Code for servlet-based environments to make GWT work correctly.</description>
 	<parent>
 		<groupId>com.github.apetrelli.gwtintegration</groupId>
 		<version>1.0.0-SNAPSHOT</version>
@@ -19,26 +19,5 @@
 			<version>2.5</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20090211</version>
-			<scope>runtime</scope>
-		</dependency>
 	</dependencies>
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
-	</build>
 </project>

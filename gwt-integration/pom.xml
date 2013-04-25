@@ -40,6 +40,7 @@
 		<module>gwt-integration-widget</module>
 		<module>gwt-integration-cellview</module>
 		<module>gwt-integration-error</module>
+		<module>gwt-integration-util</module>
 	</modules>
 	<build>
 		<plugins>

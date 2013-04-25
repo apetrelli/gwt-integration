@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.gwt;
+package com.github.apetrelli.gwtintegration.web.servlet;
 
 import java.io.IOException;
 import java.util.Date;
@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author See Wah Cheng
  * @created 24 Feb 2009
  */
-public class GWTCacheControlFilter implements Filter {
+public class GwtCacheControlFilter implements Filter {
 
 	public void destroy() {
 	}

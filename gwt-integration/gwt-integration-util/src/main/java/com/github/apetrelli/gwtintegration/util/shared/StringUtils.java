@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.shared;
+package com.github.apetrelli.gwtintegration.util.shared;
 
 public class StringUtils {
 
