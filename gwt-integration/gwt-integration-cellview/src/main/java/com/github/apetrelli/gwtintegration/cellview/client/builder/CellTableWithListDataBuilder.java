@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.editor.client.ui.cellview;
+package com.github.apetrelli.gwtintegration.cellview.client.builder;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.client.ui.widget;
+package com.github.apetrelli.gwtintegration.widget.client.panel;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;

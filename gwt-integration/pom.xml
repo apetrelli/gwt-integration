@@ -37,6 +37,8 @@
 		<module>gwt-integration-remote-logging</module>
 		<module>gwt-integration-editor</module>
 		<module>gwt-integration-mvp</module>
+		<module>gwt-integration-widget</module>
+		<module>gwt-integration-cellview</module>
 	</modules>
 	<build>
 		<plugins>

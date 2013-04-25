@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.editor.client.widget;
+package com.github.apetrelli.gwtintegration.widget.client.selection;
 
 
 import java.text.ParseException;
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.github.apetrelli.gwtintegration.cellview.client.builder.CellTableWithListDataBuilder;
 import com.github.apetrelli.gwtintegration.editor.client.IsParseableEditor;
 import com.github.apetrelli.gwtintegration.editor.client.ParseableValueEditor;
 import com.github.apetrelli.gwtintegration.editor.client.TakesParseableValue;
-import com.github.apetrelli.gwtintegration.editor.client.ui.cellview.CellTableWithListDataBuilder;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.IsEditor;
