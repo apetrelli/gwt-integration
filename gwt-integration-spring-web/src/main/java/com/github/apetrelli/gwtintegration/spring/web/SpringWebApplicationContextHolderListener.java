@@ -3,7 +3,7 @@ package com.github.apetrelli.gwtintegration.spring.web;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.github.apetrelli.gwtintegration.spring.context.ApplicationContextHolderLocator;
+import com.github.apetrelli.gwtintegration.spring.context.server.ApplicationContextHolderLocator;
 
 public class SpringWebApplicationContextHolderListener implements ServletContextListener {
 

@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.locale;
+package com.github.apetrelli.gwtintegration.locale.server;
 
 import java.util.Locale;
 

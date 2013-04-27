@@ -1,6 +1,6 @@
-package com.github.apetrelli.gwtintegration.spring.context.requestfactory;
+package com.github.apetrelli.gwtintegration.spring.context.server.requestfactory;
 
-import com.github.apetrelli.gwtintegration.spring.context.ApplicationContextHolderLocator;
+import com.github.apetrelli.gwtintegration.spring.context.server.ApplicationContextHolderLocator;
 import com.google.web.bindery.requestfactory.shared.ServiceLocator;
 
 /**

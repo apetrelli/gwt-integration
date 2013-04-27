@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.web.server.locale;
+package com.github.apetrelli.gwtintegration.locale.server;
 
 public class LocaleLocator {
 

@@ -5,7 +5,7 @@ import javax.servlet.ServletContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import com.github.apetrelli.gwtintegration.spring.context.ApplicationContextHolder;
+import com.github.apetrelli.gwtintegration.spring.context.server.ApplicationContextHolder;
 
 public class SpringWebApplicationContextHolder implements ApplicationContextHolder {
 

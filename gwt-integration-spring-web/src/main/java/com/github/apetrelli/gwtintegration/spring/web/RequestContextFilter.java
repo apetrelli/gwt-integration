@@ -13,7 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.github.apetrelli.gwtintegration.web.server.locale.LocaleLocator;
+import com.github.apetrelli.gwtintegration.locale.server.LocaleLocator;
 
 
 

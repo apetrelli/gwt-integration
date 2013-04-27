@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.spring.context.requestfactory;
+package com.github.apetrelli.gwtintegration.spring.context.server.requestfactory;
 
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -6,7 +6,7 @@ import javax.validation.groups.Default;
 
 import org.springframework.context.ApplicationContext;
 
-import com.github.apetrelli.gwtintegration.spring.context.ApplicationContextHolderLocator;
+import com.github.apetrelli.gwtintegration.spring.context.server.ApplicationContextHolderLocator;
 import com.google.web.bindery.requestfactory.server.ServiceLayerDecorator;
 import com.google.web.bindery.requestfactory.shared.Locator;
 

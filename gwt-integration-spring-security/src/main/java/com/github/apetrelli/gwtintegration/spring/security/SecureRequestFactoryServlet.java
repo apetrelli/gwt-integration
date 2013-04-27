@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 import org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy;
 
 import com.github.apetrelli.gwtintegration.requestfactory.server.RequestFactoryServlet;
-import com.github.apetrelli.gwtintegration.spring.context.requestfactory.CustomServiceLayerDecorator;
+import com.github.apetrelli.gwtintegration.spring.context.server.requestfactory.CustomServiceLayerDecorator;
 import com.google.web.bindery.requestfactory.server.ExceptionHandler;
 import com.google.web.bindery.requestfactory.server.ServiceLayerDecorator;
 import com.google.web.bindery.requestfactory.server.SimpleRequestProcessor;

@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.spring.context;
+package com.github.apetrelli.gwtintegration.spring.context.server;
 
 public class ApplicationContextHolderLocator {
 
