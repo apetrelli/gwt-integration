@@ -5,15 +5,21 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionColumn;
+import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionFieldUpdater;
+import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.view.client.CellPreviewEvent;
+import com.google.gwt.view.client.DefaultSelectionEventManager;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.ProvidesKey;
 import com.google.gwt.view.client.SelectionModel;
+import com.google.gwt.view.client.DefaultSelectionEventManager.CheckboxEventTranslator;
 
 public class CellTableWithListDataBuilder<T> {
 
@@ -54,9 +60,18 @@ public class CellTableWithListDataBuilder<T> {
 		return this;
 	}
 	
+	public CellTableWithListDataBuilder<T> createDefaultDataProvider() {
+		this.dataProvider = new ListDataProvider<T>();
+		return this;
+	}
+	
 	public CellTableWithListDataBuilder<T> setDataProvider(ListDataProvider<T> dataProvider) {
 		this.dataProvider = dataProvider;
 		return this;
+	}
+	
+	public ListDataProvider<T> getDataProvider() {
+		return dataProvider;
 	}
 	
 	public CellTableWithListDataBuilder<T> setPager(AbstractPager pager) {
@@ -80,6 +95,14 @@ public class CellTableWithListDataBuilder<T> {
 		return this;
 	}
 	
+	public CellTableWithListDataBuilder<T> createDefaultSelectionModel() {
+		if (keyProvider == null) {
+			throw new IllegalStateException("Call setKeyProvider first");
+		}
+		this.selectionModel = new MultiSelectionModel<T>(keyProvider);
+		return this;
+	}
+	
 	public CellTableWithListDataBuilder<T> setSelectionEventManager(
 			CellPreviewEvent.Handler<T> selectionEventManager) {
 		this.selectionEventManager = selectionEventManager;
@@ -97,9 +120,42 @@ public class CellTableWithListDataBuilder<T> {
 		return addColumn(title, column, null);
 	}
 	
+	public CellTableWithListDataBuilder<T> addSelectionCellboxColumn() {
+		Column<T, Boolean> checkColumn = new SelectionColumn<T>(new CheckboxCell(true, true), selectionModel);
+		CheckboxEventTranslator<T> translator = new DefaultSelectionEventManager.CheckboxEventTranslator<T>(
+				getColumnListSize());
+		addSelectionColumn(checkColumn, translator);
+		return this;
+	}
+
+	public CellTableWithListDataBuilder<T> addSelectionColumn(
+			Column<T, Boolean> checkColumn,
+			CheckboxEventTranslator<T> translator) {
+		setSelectionEventManager(DefaultSelectionEventManager
+				.<T> createCustomManager(translator));
+		checkColumn.setFieldUpdater(new SelectionFieldUpdater<T>(selectionModel));
+		addColumn("", checkColumn);
+		return this;
+	}
+
+	public static <T> void addSelectionColumn(
+			CellTableWithListDataBuilder<T> builder,
+			Column<T, Boolean> checkColumn,
+			CheckboxEventTranslator<T> translator,
+			SelectionModel<T> selectionModel) {
+		builder.setSelectionEventManager(DefaultSelectionEventManager
+				.<T> createCustomManager(translator));
+		checkColumn.setFieldUpdater(new SelectionFieldUpdater<T>(selectionModel));
+		builder.addColumn("", checkColumn);
+	}
+	
 	public CellTable<T> construct() {
 		dataTable = new CellTable<T>(keyProvider);
 		return dataTable;
+	}
+	
+	public int getColumnListSize() {
+		return columns.size();
 	}
 	
 	public void connect() {

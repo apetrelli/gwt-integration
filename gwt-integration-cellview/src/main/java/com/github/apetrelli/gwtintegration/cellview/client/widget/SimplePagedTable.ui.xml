@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:c="urn:import:com.google.gwt.user.cellview.client">
+	<ui:style>
+		
+	</ui:style>
+	<g:FlowPanel>
+		<c:CellTable ui:field="dataTable" />
+		<c:SimplePager ui:field="pager" location="CENTER"  />
+	</g:FlowPanel>
+</ui:UiBinder> 
