@@ -1,12 +1,14 @@
 package com.github.apetrelli.gwtintegration.editor.client.editor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import com.google.gwt.editor.client.Editor;
-import com.google.gwt.user.client.Window;
+import com.google.gwt.editor.client.EditorError;
 import com.google.gwt.validation.client.impl.Validation;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.BaseProxy;
@@ -31,6 +33,7 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 		@Override
 		public void onConstraintViolation(
 				Set<ConstraintViolation<?>> violations) {
+			driver.setConstraintViolations(violations);
 			onServerViolations(violations);
 		}
 
@@ -74,21 +77,29 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 	public void execute() {
 		@SuppressWarnings("unchecked")
 		R request = (R) driver.flush();
-		if (driver.hasErrors()) {
-			onErrors();
+		boolean hasErrors = driver.hasErrors();
+		List<EditorError> errors = null;
+		if (hasErrors) {
+			errors = new ArrayList<EditorError>(driver.getErrors());
+			onErrors(errors);
+			// FIXME Errors cannot be displayed together with constraint violations,
+			// so at the moment I have to get out of this method to show errors.
 			return;
 		}
 		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		Set<ConstraintViolation<?>> violations = (Set) validator.validate(currentEntity);
-		if (violations != null && !violations.isEmpty()) {
+		boolean hasViolations = violations != null && !violations.isEmpty();
+		if (hasViolations) {
+			driver.setConstraintViolations(violations);
 			onClientViolations(violations);
-			return;
 		}
-		if (currentRequest == null) {
-			currentRequest = getNewExecuteRequest(request, currentEntity);
+		if (!hasErrors && !hasViolations) {
+			if (currentRequest == null) {
+				currentRequest = getNewExecuteRequest(request, currentEntity);
+			}
+			currentRequest.fire(new ConfigurableReceiver());
 		}
-		currentRequest.fire(new ConfigurableReceiver());
 	}
 	
 	public T getCurrentEntity() {
@@ -108,17 +119,13 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 		driver.initialize(requestFactory, editor);
 	}
 
-	protected void onErrors() {
-		Window.alert("Errors");
+	protected void onErrors(List<EditorError> errors) {
 	}
 
 	protected void onClientViolations(Set<ConstraintViolation<?>> violations) {
-		driver.setConstraintViolations(violations);
 	}
 
-	protected void onServerViolations(
-			Set<ConstraintViolation<?>> violations) {
-		driver.setConstraintViolations(violations);
+	protected void onServerViolations(Set<ConstraintViolation<?>> violations) {
 	}
 
 	protected void createAndEdit() {
