@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.remotelogging;
+package com.github.apetrelli.gwtintegration.remotelogging.server;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

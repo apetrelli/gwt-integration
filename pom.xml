@@ -13,7 +13,7 @@
 		<version>1-alpha3</version>
 	</parent>
 	<properties>
-		<gwt.version>2.5.1</gwt.version>
+		<gwt.version>2.6.1</gwt.version>
 	</properties>
 	<licenses>
 		<license>

@@ -1,4 +1,4 @@
-package com.github.apetrelli.gwtintegration.remotelogging;
+package com.github.apetrelli.gwtintegration.remotelogging.server;
 
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -19,8 +19,8 @@ public class RemoteLoggingServiceImpl extends RemoteServiceServlet implements
 		RemoteLoggingService {
 
 	private static final long serialVersionUID = -420874926904940337L;
-	// No deobfuscator by default
-	private static StackTraceDeobfuscator deobfuscator = null;
+
+	private StackTraceDeobfuscator deobfuscator;
 
 	private static Logger logger = Logger.getLogger(RemoteServiceServlet.class
 			.getName());
@@ -29,10 +29,8 @@ public class RemoteLoggingServiceImpl extends RemoteServiceServlet implements
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		String symbolMapsDir = config.getInitParameter("SYMBOL_MAPS_DIR");
-		if (deobfuscator == null) {
+		if (symbolMapsDir != null) {
 			deobfuscator = new StackTraceDeobfuscator(symbolMapsDir, config.getServletContext());
-		} else {
-			deobfuscator.setSymbolMapsDirectory(symbolMapsDir);
 		}
 	}
 
