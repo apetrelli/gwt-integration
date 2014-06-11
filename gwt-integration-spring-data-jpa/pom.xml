@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.github.apetrelli.gwtintegration</groupId>
 		<artifactId>gwt-integration</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0-alpha3</version>
 	</parent>
 	<artifactId>gwt-integration-spring-data-jpa</artifactId>
 	<name>GWT Integration - Spring Data JPA</name>
@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>com.github.apetrelli.gwtintegration</groupId>
 			<artifactId>gwt-integration-service</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-alpha3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.data</groupId>
