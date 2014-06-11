@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.github.apetrelli.gwtintegration</groupId>
 		<artifactId>gwt-integration</artifactId>
-		<version>1.0.0-alpha3</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>gwt-integration-widget</artifactId>
 	<name>GWT Integration - Widget collection</name>
@@ -22,12 +22,12 @@
 		<dependency>
 			<groupId>com.github.apetrelli.gwtintegration</groupId>
 			<artifactId>gwt-integration-editor</artifactId>
-			<version>1.0.0-alpha3</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.apetrelli.gwtintegration</groupId>
 			<artifactId>gwt-integration-cellview</artifactId>
-			<version>1.0.0-alpha3</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>
