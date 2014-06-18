@@ -3,7 +3,7 @@
 <module rename-to="GwtIntegrationEditor">
 	<inherits name="com.google.gwt.editor.Editor"/>
 	<inherits name="com.google.gwt.user.cellview.CellView"/>
-	<inherits name="com.google.web.bindery.requestfactory.RequestFactory"/>
+	<inherits name="com.github.apetrelli.gwtintegration.requestfactory.GwtIntegrationRequestFactory"/>
 	<source path="client" />
 	<source path="shared"/>
 </module>

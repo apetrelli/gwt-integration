@@ -1,11 +1,10 @@
 package com.github.apetrelli.gwtintegration.editor.client.editor;
 
-
 import com.github.apetrelli.gwtintegration.editor.client.requestfactory.CrudRequest;
+import com.github.apetrelli.gwtintegration.requestfactory.shared.Receiver;
 import com.google.gwt.editor.client.Editor;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
-import com.google.web.bindery.requestfactory.shared.Receiver;
 import com.google.web.bindery.requestfactory.shared.Request;
 import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
