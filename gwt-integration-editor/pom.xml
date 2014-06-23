@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.github.apetrelli.gwtintegration</groupId>
 		<artifactId>gwt-integration</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0-alpha4</version>
 	</parent>
 	<artifactId>gwt-integration-editor</artifactId>
 	<name>GWT Integration - Editor</name>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>com.github.apetrelli.gwtintegration</groupId>
 			<artifactId>gwt-integration-requestfactory</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0-alpha4</version>
 		</dependency>
 	</dependencies>
 	<build>
