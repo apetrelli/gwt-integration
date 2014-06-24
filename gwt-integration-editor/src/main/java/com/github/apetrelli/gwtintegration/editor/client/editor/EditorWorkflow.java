@@ -17,7 +17,13 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
 			RequestFactoryEditorDriver<T, E> driver, E editor) {
 		super(requestFactory, driver, editor);
 	}
-	
+
+	public EditorWorkflow(RequestFactory requestFactory,
+			RequestFactoryEditorDriver<T, E> driver, E editor,
+			ConstraintViolationDisplayer genericDisplayer) {
+		super(requestFactory, driver, editor, genericDisplayer);
+	}
+
 	public void start(I id) {
 		initialize();
 		if (id != null) {
@@ -30,7 +36,7 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
 	public void save() {
 		execute();
 	}
-	
+
 	public void delete() {
 		getNewDeleteRequest(getNewRequestContext(), currentEntity).fire(new Receiver<Void>() {
 
@@ -52,7 +58,7 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
 			}
 		});
 	}
-	
+
 	@Override
 	protected Request<T> getNewExecuteRequest(R requestContext, T entity) {
 		return getNewSaveRequest(requestContext, entity);
@@ -65,11 +71,11 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
 	protected Request<T> getNewFindRequest(R requestContext, I id) {
 		return requestContext.findOne(id);
 	}
-	
+
 	protected Request<T> getNewSaveRequest(R requestContext, T entity) {
 		return requestContext.save(entity);
 	}
-	
+
 	@Override
 	protected void process(T response) {
 		afterSave(response);
@@ -80,8 +86,8 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
 	protected abstract Class<T> getEntityProxyClass();
 
 	protected abstract I getEntityId(T entityProxy);
-	
+
 	protected abstract void afterSave(T response);
-	
+
 	protected abstract void afterDelete();
 }

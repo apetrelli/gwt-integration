@@ -1,6 +1,7 @@
 package com.github.apetrelli.gwtintegration.editor.client.editor;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,13 +20,13 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 import com.google.web.bindery.requestfactory.shared.ServerFailure;
 
 public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends BaseProxy, E extends Editor<T>> {
-	
+
 	private final class ConfigurableReceiver extends Receiver<V> {
 		@Override
 		public void onFailure(ServerFailure error) {
 			onServerFailure(this, error);
 		}
-		
+
 		public void callParentOnFailure(ServerFailure error) {
 			super.onFailure(error);
 		}
@@ -34,6 +35,7 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 		public void onConstraintViolation(
 				Set<ConstraintViolation<?>> violations) {
 			driver.setConstraintViolations(violations);
+			fillGenericViolations(violations);
 			onServerViolations(violations);
 		}
 
@@ -48,32 +50,37 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 	}
 
 	protected T currentEntity;
-	
+
 	protected R currentRequestContext;
-	
+
 	private Request<V> currentRequest;
 
 	private RequestFactory requestFactory;
-	
+
 	private RequestFactoryEditorDriver<T, E> driver;
-	
+
 	private E editor;
 
-	/**
-	 * @param driver
-	 */
+	private ConstraintViolationDisplayer genericDisplayer;
+
 	public BaseEditorWorkflow(RequestFactory requestFactory,
 			RequestFactoryEditorDriver<T, E> driver, E editor) {
+		this(requestFactory, driver, editor, null);
+	}
+
+	public BaseEditorWorkflow(RequestFactory requestFactory,
+			RequestFactoryEditorDriver<T, E> driver, E editor, ConstraintViolationDisplayer genericDisplayer) {
 		this.requestFactory = requestFactory;
 		this.driver = driver;
 		this.editor = editor;
+		this.genericDisplayer = genericDisplayer;
 	}
-	
+
 	public void start() {
 		initialize();
 		createAndEdit();
 	}
-	
+
 	public void execute() {
 		@SuppressWarnings("unchecked")
 		R request = (R) driver.flush();
@@ -92,6 +99,7 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 		boolean hasViolations = violations != null && !violations.isEmpty();
 		if (hasViolations) {
 			driver.setConstraintViolations(violations);
+			fillGenericViolations(violations);
 			onClientViolations(violations);
 		}
 		if (!hasErrors && !hasViolations) {
@@ -101,22 +109,25 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 			currentRequest.fire(new ConfigurableReceiver());
 		}
 	}
-	
+
 	public T getCurrentEntity() {
 		return currentEntity;
 	}
-	
+
 	protected abstract Request<V> getNewExecuteRequest(R requestContext, T entity);
 
 	protected abstract R getNewRequestContext();
 
 	protected abstract Class<T> getEntityProxyClass();
-	
+
 	protected abstract void process(V response);
 
 	protected void initialize() {
 		currentRequestContext = getNewRequestContext();
 		driver.initialize(requestFactory, editor);
+		if (genericDisplayer != null) {
+			genericDisplayer.reset();
+		}
 	}
 
 	protected void onErrors(List<EditorError> errors) {
@@ -148,5 +159,17 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 
 	protected void onServerFailure(Receiver<V> receiver, ServerFailure error) {
 		((ConfigurableReceiver) receiver).callParentOnFailure(error);
+	}
+
+	private void fillGenericViolations(Set<ConstraintViolation<?>> violations) {
+		if (genericDisplayer != null) {
+			Set<ConstraintViolation<?>> genericViolations = new LinkedHashSet<ConstraintViolation<?>>();
+			for (ConstraintViolation<?> violation : violations) {
+				if (violation.getPropertyPath().iterator().next().getName() == null) {
+					genericViolations.add(violation);
+				}
+			}
+			genericDisplayer.setConstraintViolations(genericViolations);
+		}
 	}
 }
