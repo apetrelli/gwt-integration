@@ -7,14 +7,14 @@ import com.github.apetrelli.gwtintegration.locale.server.LocaleLocator;
 
 public class SessionLocaleHolderListener implements ServletContextListener {
 
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		LocaleLocator.setHolder(new SessionLocaleHolder());
-	}
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        LocaleLocator.setHolder(new SessionLocaleHolder());
+    }
 
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		LocaleLocator.setHolder(null);
-	}
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        LocaleLocator.setHolder(null);
+    }
 
 }

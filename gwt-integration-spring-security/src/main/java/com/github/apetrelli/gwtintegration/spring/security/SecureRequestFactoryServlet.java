@@ -18,51 +18,51 @@ import com.google.web.bindery.requestfactory.server.SimpleRequestProcessor;
 
 /**
  * Extension of RequestFactoryServlet.
- * 
+ *
  */
 public class SecureRequestFactoryServlet extends RequestFactoryServlet {
-	private static final long serialVersionUID = 1L;
-	
-	private SessionAuthenticationStrategy strategy;
-	
-	private AuthenticationTrustResolver authenticationTrustResolver;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 */
-	public SecureRequestFactoryServlet() {
-		this(new SpringSecurityLoggingExceptionHandler(), new CustomServiceLayerDecorator());
-	}
+    private SessionAuthenticationStrategy strategy;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param exceptionHandler
-	 *            Handles an exception produced while processing a request
-	 * @param serviceDecorators
-	 *            List of services to management decorator.
-	 */
-	public SecureRequestFactoryServlet(ExceptionHandler exceptionHandler,
-			ServiceLayerDecorator... serviceDecorators) {
-		super(exceptionHandler, serviceDecorators);
-		strategy = new SessionFixationProtectionStrategy();
-		authenticationTrustResolver = new AuthenticationTrustResolverImpl();
-	}
+    private AuthenticationTrustResolver authenticationTrustResolver;
 
-	protected String process(SimpleRequestProcessor processor,
-			HttpServletRequest request, HttpServletResponse response,
-			String jsonRequestString) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		boolean loggedIn = authentication != null && !authenticationTrustResolver.isAnonymous(authentication);
-		String payload = processor.process(jsonRequestString);
-		if (!loggedIn) {
-			authentication = SecurityContextHolder.getContext().getAuthentication();
-			if (authentication != null && !authenticationTrustResolver.isAnonymous(authentication)) {
-				strategy.onAuthentication(authentication,
-						request,
-						response);
-			}
-		}
-		return payload;
-	}
+    /**
+     * Constructor.
+     */
+    public SecureRequestFactoryServlet() {
+        this(new SpringSecurityLoggingExceptionHandler(), new CustomServiceLayerDecorator());
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param exceptionHandler
+     *            Handles an exception produced while processing a request
+     * @param serviceDecorators
+     *            List of services to management decorator.
+     */
+    public SecureRequestFactoryServlet(ExceptionHandler exceptionHandler,
+            ServiceLayerDecorator... serviceDecorators) {
+        super(exceptionHandler, serviceDecorators);
+        strategy = new SessionFixationProtectionStrategy();
+        authenticationTrustResolver = new AuthenticationTrustResolverImpl();
+    }
+
+    protected String process(SimpleRequestProcessor processor,
+            HttpServletRequest request, HttpServletResponse response,
+            String jsonRequestString) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean loggedIn = authentication != null && !authenticationTrustResolver.isAnonymous(authentication);
+        String payload = processor.process(jsonRequestString);
+        if (!loggedIn) {
+            authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && !authenticationTrustResolver.isAnonymous(authentication)) {
+                strategy.onAuthentication(authentication,
+                        request,
+                        response);
+            }
+        }
+        return payload;
+    }
 }

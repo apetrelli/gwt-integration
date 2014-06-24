@@ -7,14 +7,14 @@ import com.github.apetrelli.gwtintegration.spring.context.server.ApplicationCont
 
 public class SpringWebApplicationContextHolderListener implements ServletContextListener {
 
-	@Override
-	public void contextInitialized(ServletContextEvent sce) {
-		ApplicationContextHolderLocator.setHolder(new SpringWebApplicationContextHolder(sce.getServletContext()));
-	}
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        ApplicationContextHolderLocator.setHolder(new SpringWebApplicationContextHolder(sce.getServletContext()));
+    }
 
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		ApplicationContextHolderLocator.setHolder(null);
-	}
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        ApplicationContextHolderLocator.setHolder(null);
+    }
 
 }

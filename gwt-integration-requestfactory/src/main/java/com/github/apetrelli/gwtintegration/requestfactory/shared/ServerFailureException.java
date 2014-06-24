@@ -7,21 +7,21 @@ import com.google.web.bindery.requestfactory.shared.ServerFailure;
  */
 public class ServerFailureException extends RuntimeException {
 
-	private static final long serialVersionUID = 8385106541717533628L;
+    private static final long serialVersionUID = 8385106541717533628L;
 
-	private ServerFailure failure;
+    private ServerFailure failure;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param failure The failure.
-	 */
-	public ServerFailureException(ServerFailure failure) {
-		super(failure.getMessage());
-		this.failure = failure;
-	}
+    /**
+     * Constructor.
+     *
+     * @param failure The failure.
+     */
+    public ServerFailureException(ServerFailure failure) {
+        super(failure.getMessage());
+        this.failure = failure;
+    }
 
-	public ServerFailure getFailure() {
-		return failure;
-	}
+    public ServerFailure getFailure() {
+        return failure;
+    }
 }

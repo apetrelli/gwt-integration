@@ -10,84 +10,84 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudRequest<T, I>, E extends Editor<T>, I> extends BaseEditorWorkflow<T, R, T, E> {
 
-	/**
-	 * @param driver
-	 */
-	public EditorWorkflow(RequestFactory requestFactory,
-			RequestFactoryEditorDriver<T, E> driver, E editor) {
-		super(requestFactory, driver, editor);
-	}
+    /**
+     * @param driver
+     */
+    public EditorWorkflow(RequestFactory requestFactory,
+            RequestFactoryEditorDriver<T, E> driver, E editor) {
+        super(requestFactory, driver, editor);
+    }
 
-	public EditorWorkflow(RequestFactory requestFactory,
-			RequestFactoryEditorDriver<T, E> driver, E editor,
-			ConstraintViolationDisplayer genericDisplayer) {
-		super(requestFactory, driver, editor, genericDisplayer);
-	}
+    public EditorWorkflow(RequestFactory requestFactory,
+            RequestFactoryEditorDriver<T, E> driver, E editor,
+            ConstraintViolationDisplayer genericDisplayer) {
+        super(requestFactory, driver, editor, genericDisplayer);
+    }
 
-	public void start(I id) {
-		initialize();
-		if (id != null) {
-			loadAndEdit(id);
-		} else {
-			createAndEdit();
-		}
-	}
+    public void start(I id) {
+        initialize();
+        if (id != null) {
+            loadAndEdit(id);
+        } else {
+            createAndEdit();
+        }
+    }
 
-	public void save() {
-		execute();
-	}
+    public void save() {
+        execute();
+    }
 
-	public void delete() {
-		getNewDeleteRequest(getNewRequestContext(), currentEntity).fire(new Receiver<Void>() {
+    public void delete() {
+        getNewDeleteRequest(getNewRequestContext(), currentEntity).fire(new Receiver<Void>() {
 
-			@Override
-			public void onSuccess(Void response) {
-				afterDelete();
-			}
-		});
-	}
+            @Override
+            public void onSuccess(Void response) {
+                afterDelete();
+            }
+        });
+    }
 
-	protected void loadAndEdit(I id) {
-		getNewFindRequest(currentRequestContext, id).with(getPaths()).fire(new Receiver<T>() {
+    protected void loadAndEdit(I id) {
+        getNewFindRequest(currentRequestContext, id).with(getPaths()).fire(new Receiver<T>() {
 
-			@Override
-			public void onSuccess(T response) {
-				currentRequestContext = getNewRequestContext();
-				currentEntity = currentRequestContext.edit(response);
-				editCurrentEntity();
-			}
-		});
-	}
+            @Override
+            public void onSuccess(T response) {
+                currentRequestContext = getNewRequestContext();
+                currentEntity = currentRequestContext.edit(response);
+                editCurrentEntity();
+            }
+        });
+    }
 
-	@Override
-	protected Request<T> getNewExecuteRequest(R requestContext, T entity) {
-		return getNewSaveRequest(requestContext, entity);
-	}
+    @Override
+    protected Request<T> getNewExecuteRequest(R requestContext, T entity) {
+        return getNewSaveRequest(requestContext, entity);
+    }
 
-	protected Request<Void> getNewDeleteRequest(R r, T entityProxy) {
-		return r.delete(getEntityId(entityProxy));
-	}
+    protected Request<Void> getNewDeleteRequest(R r, T entityProxy) {
+        return r.delete(getEntityId(entityProxy));
+    }
 
-	protected Request<T> getNewFindRequest(R requestContext, I id) {
-		return requestContext.findOne(id);
-	}
+    protected Request<T> getNewFindRequest(R requestContext, I id) {
+        return requestContext.findOne(id);
+    }
 
-	protected Request<T> getNewSaveRequest(R requestContext, T entity) {
-		return requestContext.save(entity);
-	}
+    protected Request<T> getNewSaveRequest(R requestContext, T entity) {
+        return requestContext.save(entity);
+    }
 
-	@Override
-	protected void process(T response) {
-		afterSave(response);
-	}
+    @Override
+    protected void process(T response) {
+        afterSave(response);
+    }
 
-	protected abstract R getNewRequestContext();
+    protected abstract R getNewRequestContext();
 
-	protected abstract Class<T> getEntityProxyClass();
+    protected abstract Class<T> getEntityProxyClass();
 
-	protected abstract I getEntityId(T entityProxy);
+    protected abstract I getEntityId(T entityProxy);
 
-	protected abstract void afterSave(T response);
+    protected abstract void afterSave(T response);
 
-	protected abstract void afterDelete();
+    protected abstract void afterDelete();
 }

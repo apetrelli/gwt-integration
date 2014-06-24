@@ -6,11 +6,11 @@ import com.google.gwt.user.client.ui.ValueLabel;
 
 public class BooleanLabel extends ValueLabel<Boolean> {
 
-	/**
-	 * @param renderer
-	 */
-	public BooleanLabel() {
-		super(BooleanRenderer.instance());
-	}
+    /**
+     * @param renderer
+     */
+    public BooleanLabel() {
+        super(BooleanRenderer.instance());
+    }
 
 }

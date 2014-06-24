@@ -2,11 +2,11 @@ package com.github.apetrelli.gwtintegration.util.shared;
 
 public class StringUtils {
 
-	private StringUtils() {}
-	
+    private StringUtils() {}
+
     /**
      * Got from Apache Commons Lang.
-     * 
+     *
      * <p>Checks if a String is whitespace, empty ("") or null.</p>
      *
      * <pre>
@@ -22,7 +22,7 @@ public class StringUtils {
      * @since 2.0
      */
     @SuppressWarnings("deprecation")
-	public static boolean isBlank(String str) {
+    public static boolean isBlank(String str) {
         int strLen;
         if (str == null || (strLen = str.length()) == 0) {
             return true;

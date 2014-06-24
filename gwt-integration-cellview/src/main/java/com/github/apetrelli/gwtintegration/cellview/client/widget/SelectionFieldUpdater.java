@@ -5,15 +5,15 @@ import com.google.gwt.view.client.SelectionModel;
 
 public class SelectionFieldUpdater<T> implements FieldUpdater<T, Boolean> {
 
-	private SelectionModel<T> selectionModel;
+    private SelectionModel<T> selectionModel;
 
-	public SelectionFieldUpdater(SelectionModel<T> selectionModel) {
-		this.selectionModel = selectionModel;
-	}
+    public SelectionFieldUpdater(SelectionModel<T> selectionModel) {
+        this.selectionModel = selectionModel;
+    }
 
-	@Override
-	public void update(int index, T object, Boolean value) {
-		selectionModel.setSelected(object, value);
-	}
+    @Override
+    public void update(int index, T object, Boolean value) {
+        selectionModel.setSelected(object, value);
+    }
 
 }

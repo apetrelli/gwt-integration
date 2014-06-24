@@ -9,15 +9,15 @@ import com.github.apetrelli.gwtintegration.spring.context.server.ApplicationCont
 
 public class SpringWebApplicationContextHolder implements ApplicationContextHolder {
 
-	private ServletContext servletContext;
+    private ServletContext servletContext;
 
-	public SpringWebApplicationContextHolder(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
-	
-	@Override
-	public ApplicationContext getApplicationContext() {
-		return WebApplicationContextUtils.getWebApplicationContext(servletContext);
-	}
+    public SpringWebApplicationContextHolder(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+
+    @Override
+    public ApplicationContext getApplicationContext() {
+        return WebApplicationContextUtils.getWebApplicationContext(servletContext);
+    }
 
 }

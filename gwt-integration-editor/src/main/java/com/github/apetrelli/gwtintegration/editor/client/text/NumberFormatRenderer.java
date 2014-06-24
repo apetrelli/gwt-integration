@@ -5,18 +5,18 @@ import com.google.gwt.text.shared.AbstractRenderer;
 
 public class NumberFormatRenderer<T extends Number> extends AbstractRenderer<T> {
 
-	private NumberFormat format;
+    private NumberFormat format;
 
-	public NumberFormatRenderer(NumberFormat format) {
-		this.format = format;
-	}
+    public NumberFormatRenderer(NumberFormat format) {
+        this.format = format;
+    }
 
-	@Override
-	public String render(T object) {
-		if (null == object) {
-			return "";
-		}
-		return format.format(object);
-	}
+    @Override
+    public String render(T object) {
+        if (null == object) {
+            return "";
+        }
+        return format.format(object);
+    }
 
 }

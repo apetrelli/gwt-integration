@@ -6,15 +6,15 @@ package com.github.apetrelli.gwtintegration.deletable;
  */
 public interface Deletable {
 
-	/**
-	 * Returns the deleted status.
-	 * 
-	 * @return <code>true</code> if it has been deleted.
-	 */
-	boolean isDeleted();
-	
-	/**
-	 * Marks this entity as deleted.
-	 */
-	void markAsDeleted();
+    /**
+     * Returns the deleted status.
+     *
+     * @return <code>true</code> if it has been deleted.
+     */
+    boolean isDeleted();
+
+    /**
+     * Marks this entity as deleted.
+     */
+    void markAsDeleted();
 }

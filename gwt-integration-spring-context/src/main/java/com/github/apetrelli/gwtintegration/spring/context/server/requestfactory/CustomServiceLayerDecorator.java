@@ -16,27 +16,27 @@ import com.google.web.bindery.requestfactory.shared.Locator;
  *
  */
 public class CustomServiceLayerDecorator extends ServiceLayerDecorator {
-	
-	private Validator validator;
-	
-	/**
-	 * Constructor.
-	 */
-	public CustomServiceLayerDecorator() {
-		validator = ApplicationContextHolderLocator.getHolder()
-				.getApplicationContext().getBean(ValidatorFactory.class)
-				.getValidator();
-	}
 
-	@Override
-	public <T extends Locator<?, ?>> T createLocator(Class<T> clazz) {
-		ApplicationContext context = ApplicationContextHolderLocator
-				.getHolder().getApplicationContext();
-		return context.getBean(clazz);
-	}
-	
-	@Override
-	public <T extends Object> java.util.Set<javax.validation.ConstraintViolation<T>> validate(T domainObject) {
-		return validator.validate(domainObject, Default.class);
-	}
+    private Validator validator;
+
+    /**
+     * Constructor.
+     */
+    public CustomServiceLayerDecorator() {
+        validator = ApplicationContextHolderLocator.getHolder()
+                .getApplicationContext().getBean(ValidatorFactory.class)
+                .getValidator();
+    }
+
+    @Override
+    public <T extends Locator<?, ?>> T createLocator(Class<T> clazz) {
+        ApplicationContext context = ApplicationContextHolderLocator
+                .getHolder().getApplicationContext();
+        return context.getBean(clazz);
+    }
+
+    @Override
+    public <T extends Object> java.util.Set<javax.validation.ConstraintViolation<T>> validate(T domainObject) {
+        return validator.validate(domainObject, Default.class);
+    }
 }

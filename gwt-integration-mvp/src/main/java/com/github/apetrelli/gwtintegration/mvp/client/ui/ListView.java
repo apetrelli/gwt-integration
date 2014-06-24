@@ -7,7 +7,7 @@ import com.google.web.bindery.requestfactory.shared.EntityProxy;
 
 public interface ListView<T extends EntityProxy, P extends MvpView.Presenter> extends MvpView<P>{
 
-	void setItems(List<T> items);
-	
-	Set<T> getSelectedItems();
+    void setItems(List<T> items);
+
+    Set<T> getSelectedItems();
 }

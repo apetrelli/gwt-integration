@@ -14,37 +14,37 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class ErrorDisplayWidget extends Composite {
 
-	@UiField Label message;
+    @UiField Label message;
 
-	@UiField Button dismiss;
+    @UiField Button dismiss;
 
-	private static ErrorDisplayWidgetUiBinder uiBinder = GWT
-			.create(ErrorDisplayWidgetUiBinder.class);
+    private static ErrorDisplayWidgetUiBinder uiBinder = GWT
+            .create(ErrorDisplayWidgetUiBinder.class);
 
-	/**
-	 * The UiBinder for the corresponding XML file.
-	 */
-	interface ErrorDisplayWidgetUiBinder extends
-			UiBinder<Widget, ErrorDisplayWidget> {
-	}
+    /**
+     * The UiBinder for the corresponding XML file.
+     */
+    interface ErrorDisplayWidgetUiBinder extends
+            UiBinder<Widget, ErrorDisplayWidget> {
+    }
 
-	/**
-	 * Constructor.
-	 */
-	public ErrorDisplayWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    /**
+     * Constructor.
+     */
+    public ErrorDisplayWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	/**
-	 * Prepares the message to show.
-	 * 
-	 * @param message The message to show.
-	 */
-	public void prepare(String message) {
-		this.message.setText(message);
-	}
+    /**
+     * Prepares the message to show.
+     *
+     * @param message The message to show.
+     */
+    public void prepare(String message) {
+        this.message.setText(message);
+    }
 
-	public HasClickHandlers getDismiss() {
-		return dismiss;
-	}
+    public HasClickHandlers getDismiss() {
+        return dismiss;
+    }
 }

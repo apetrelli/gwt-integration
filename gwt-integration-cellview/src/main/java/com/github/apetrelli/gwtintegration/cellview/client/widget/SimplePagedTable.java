@@ -9,35 +9,35 @@ import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.client.ui.Widget;
 
 public class SimplePagedTable<T> extends PagedTable<T> {
-	
-	@UiField(provided = true) CellTable<T> dataTable;
-	
-	@UiField SimplePager pager;
 
-	private static SimplePagedTableUiBinder uiBinder = GWT
-			.create(SimplePagedTableUiBinder.class);
+    @UiField(provided = true) CellTable<T> dataTable;
 
-	@SuppressWarnings("rawtypes")
-	interface SimplePagedTableUiBinder extends
-			UiBinder<Widget, SimplePagedTable> {
-	}
+    @UiField SimplePager pager;
 
-	public SimplePagedTable(CellTableWithListDataBuilder<T> builder) {
-		super(builder);
-	}
+    private static SimplePagedTableUiBinder uiBinder = GWT
+            .create(SimplePagedTableUiBinder.class);
 
-	@Override
-	protected void initWidget() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    @SuppressWarnings("rawtypes")
+    interface SimplePagedTableUiBinder extends
+            UiBinder<Widget, SimplePagedTable> {
+    }
 
-	@Override
-	protected void setDataTable(CellTable<T> dataTable) {
-		this.dataTable = dataTable;
-	}
+    public SimplePagedTable(CellTableWithListDataBuilder<T> builder) {
+        super(builder);
+    }
 
-	@Override
-	protected SimplePager getPager() {
-		return pager;
-	}
+    @Override
+    protected void initWidget() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @Override
+    protected void setDataTable(CellTable<T> dataTable) {
+        this.dataTable = dataTable;
+    }
+
+    @Override
+    protected SimplePager getPager() {
+        return pager;
+    }
 }

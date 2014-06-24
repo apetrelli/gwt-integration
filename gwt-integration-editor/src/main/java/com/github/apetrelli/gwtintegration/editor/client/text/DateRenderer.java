@@ -7,14 +7,14 @@ import com.google.gwt.text.shared.AbstractRenderer;
 
 public class DateRenderer extends AbstractRenderer<Date> {
 
-	private DateTimeFormat format;
+    private DateTimeFormat format;
 
-	public DateRenderer(DateTimeFormat format) {
-		this.format = format;
-	}
+    public DateRenderer(DateTimeFormat format) {
+        this.format = format;
+    }
 
-	@Override
-	public String render(Date object) {
-		return object != null ? format.format(object) : "";
-	}
+    @Override
+    public String render(Date object) {
+        return object != null ? format.format(object) : "";
+    }
 }

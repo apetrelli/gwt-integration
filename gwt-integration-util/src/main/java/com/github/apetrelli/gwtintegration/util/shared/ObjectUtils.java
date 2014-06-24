@@ -2,7 +2,7 @@ package com.github.apetrelli.gwtintegration.util.shared;
 
 /**
  * Copied from Apache Commons Lang 3.1.
- * 
+ *
  * <p>Operations on {@code Object}.</p>
  *
  * <p>This class tries to handle {@code null} input gracefully.
@@ -14,8 +14,8 @@ package com.github.apetrelli.gwtintegration.util.shared;
  * @version $Id: ObjectUtils.java 1199894 2011-11-09 17:53:59Z ggregory $
  */
 public class ObjectUtils {
-	
-	private ObjectUtils() {}
+
+    private ObjectUtils() {}
 
     /**
      * <p>Null safe comparison of Comparables.
@@ -54,5 +54,5 @@ public class ObjectUtils {
         }
         return c1.compareTo(c2);
     }
-	
+
 }

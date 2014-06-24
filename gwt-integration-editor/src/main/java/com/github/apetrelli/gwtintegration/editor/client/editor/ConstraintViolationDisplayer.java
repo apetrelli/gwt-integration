@@ -5,7 +5,7 @@ import java.util.Set;
 import javax.validation.ConstraintViolation;
 
 public interface ConstraintViolationDisplayer {
-	void reset();
+    void reset();
 
-	void setConstraintViolations(Set<ConstraintViolation<?>> violations);
+    void setConstraintViolations(Set<ConstraintViolation<?>> violations);
 }

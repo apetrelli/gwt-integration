@@ -8,8 +8,8 @@ import com.google.web.bindery.requestfactory.shared.ServiceLocator;
  */
 public class GwtServiceLocator implements ServiceLocator {
 
-	@Override
-	public Object getInstance(Class<?> clazz) {
-		return ApplicationContextHolderLocator.getHolder().getApplicationContext().getBean(clazz);
-	}
+    @Override
+    public Object getInstance(Class<?> clazz) {
+        return ApplicationContextHolderLocator.getHolder().getApplicationContext().getBean(clazz);
+    }
 }

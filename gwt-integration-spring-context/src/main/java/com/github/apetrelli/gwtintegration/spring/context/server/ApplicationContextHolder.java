@@ -4,5 +4,5 @@ import org.springframework.context.ApplicationContext;
 
 public interface ApplicationContextHolder {
 
-	ApplicationContext getApplicationContext();
+    ApplicationContext getApplicationContext();
 }

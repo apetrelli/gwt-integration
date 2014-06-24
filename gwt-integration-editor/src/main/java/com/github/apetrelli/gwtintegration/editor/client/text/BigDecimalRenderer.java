@@ -7,23 +7,23 @@ import com.google.gwt.text.shared.AbstractRenderer;
 import com.google.gwt.text.shared.Renderer;
 
 public class BigDecimalRenderer extends AbstractRenderer<BigDecimal> {
-	private static BigDecimalRenderer INSTANCE;
+    private static BigDecimalRenderer INSTANCE;
 
-	public static Renderer<BigDecimal> instance() {
-		if (INSTANCE == null) {
-			INSTANCE = new BigDecimalRenderer();
-		}
-		return INSTANCE;
-	}
+    public static Renderer<BigDecimal> instance() {
+        if (INSTANCE == null) {
+            INSTANCE = new BigDecimalRenderer();
+        }
+        return INSTANCE;
+    }
 
-	protected BigDecimalRenderer() {
-	}
+    protected BigDecimalRenderer() {
+    }
 
-	public String render(BigDecimal object) {
-		if (null == object) {
-			return "";
-		}
+    public String render(BigDecimal object) {
+        if (null == object) {
+            return "";
+        }
 
-		return NumberFormat.getDecimalFormat().format(object);
-	}
+        return NumberFormat.getDecimalFormat().format(object);
+    }
 }

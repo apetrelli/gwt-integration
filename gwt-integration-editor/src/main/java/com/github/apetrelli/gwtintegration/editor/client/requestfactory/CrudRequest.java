@@ -8,11 +8,11 @@ import com.google.web.bindery.requestfactory.shared.RequestContext;
 
 public interface CrudRequest<T extends EntityProxy, I> extends RequestContext {
 
-	Request<T> findOne(I id);
-	
-	Request<T> save(T entityProxy);
-	
-	Request<Void> delete(I id);
-	
-	Request<Void> deleteAll(Set<T> items);
+    Request<T> findOne(I id);
+
+    Request<T> save(T entityProxy);
+
+    Request<Void> delete(I id);
+
+    Request<Void> deleteAll(Set<T> items);
 }

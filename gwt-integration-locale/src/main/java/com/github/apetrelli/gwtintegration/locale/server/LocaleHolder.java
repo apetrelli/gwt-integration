@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public interface LocaleHolder {
 
-	void setLocale(Locale locale);
-	
-	Locale getLocale();
+    void setLocale(Locale locale);
+
+    Locale getLocale();
 }

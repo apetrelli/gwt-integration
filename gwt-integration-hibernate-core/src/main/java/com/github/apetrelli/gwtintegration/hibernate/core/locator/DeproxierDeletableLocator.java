@@ -12,16 +12,16 @@ import com.github.apetrelli.gwtintegration.deletable.locator.DeletableLocator;
  * @param <I> The id type.
  */
 public abstract class DeproxierDeletableLocator<T extends Deletable, I> extends
-		DeletableLocator<T, I> {
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public T find(Class<? extends T> clazz, I id) {
-		T retValue = find(id);
-		if (retValue instanceof HibernateProxy) {
-			HibernateProxy proxy = (HibernateProxy) retValue;
-			retValue = (T) proxy.writeReplace();
-		}
-		return retValue;
-	}
+        DeletableLocator<T, I> {
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public T find(Class<? extends T> clazz, I id) {
+        T retValue = find(id);
+        if (retValue instanceof HibernateProxy) {
+            HibernateProxy proxy = (HibernateProxy) retValue;
+            retValue = (T) proxy.writeReplace();
+        }
+        return retValue;
+    }
 }

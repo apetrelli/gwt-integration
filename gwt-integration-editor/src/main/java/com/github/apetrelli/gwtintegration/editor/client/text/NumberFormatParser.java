@@ -7,25 +7,25 @@ import com.google.gwt.text.shared.Parser;
 
 public abstract class NumberFormatParser<T extends Number> implements Parser<T> {
 
-	private NumberFormat format;
+    private NumberFormat format;
 
-	public NumberFormatParser(NumberFormat format) {
-		this.format = format;
-	}
+    public NumberFormatParser(NumberFormat format) {
+        this.format = format;
+    }
 
-	@Override
-	public T parse(CharSequence text) throws ParseException {
-		if ("".equals(text.toString())) {
-			return null;
-		}
+    @Override
+    public T parse(CharSequence text) throws ParseException {
+        if ("".equals(text.toString())) {
+            return null;
+        }
 
-		try {
-			return parseString(text, format);
-		} catch (NumberFormatException e) {
-			throw new ParseException(e.getMessage(), 0);
-		}
-	}
-	
-	protected abstract T parseString(CharSequence text, NumberFormat format);
+        try {
+            return parseString(text, format);
+        } catch (NumberFormatException e) {
+            throw new ParseException(e.getMessage(), 0);
+        }
+    }
+
+    protected abstract T parseString(CharSequence text, NumberFormat format);
 
 }

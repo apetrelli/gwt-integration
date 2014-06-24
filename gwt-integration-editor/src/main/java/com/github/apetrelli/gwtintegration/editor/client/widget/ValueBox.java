@@ -6,10 +6,10 @@ import com.google.gwt.text.shared.Renderer;
 import com.google.gwt.uibinder.client.UiConstructor;
 
 public class ValueBox<T> extends com.google.gwt.user.client.ui.ValueBox<T>{
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@UiConstructor
-	public ValueBox(Renderer renderer, Parser parser) {
-		super(Document.get().createTextInputElement(), renderer, parser);
-	}
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @UiConstructor
+    public ValueBox(Renderer renderer, Parser parser) {
+        super(Document.get().createTextInputElement(), renderer, parser);
+    }
 }

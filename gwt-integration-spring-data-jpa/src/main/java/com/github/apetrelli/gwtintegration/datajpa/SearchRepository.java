@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface SearchRepository<T, F> {
 
-	List<T> search(F filter);
+    List<T> search(F filter);
 }

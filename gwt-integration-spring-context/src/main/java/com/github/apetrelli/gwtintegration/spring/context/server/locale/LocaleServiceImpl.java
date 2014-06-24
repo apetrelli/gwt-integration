@@ -9,9 +9,9 @@ import com.github.apetrelli.gwtintegration.locale.server.LocaleLocator;
 @Service
 public class LocaleServiceImpl implements LocaleService {
 
-	@Override
-	public void setLocale(String localeCode) {
-		LocaleLocator.getHolder().setLocale(new Locale(localeCode));
-	}
+    @Override
+    public void setLocale(String localeCode) {
+        LocaleLocator.getHolder().setLocale(new Locale(localeCode));
+    }
 
 }

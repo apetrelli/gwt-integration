@@ -11,23 +11,23 @@ import com.github.apetrelli.gwtintegration.locale.server.LocaleHolder;
 @Component
 public class SessionLocaleHolder implements LocaleHolder {
 
-	private static final String ATTRIBUTE_NAME = SessionLocaleHolder.class
-			.getName() + ".ATTRIBUTE_NAME";
+    private static final String ATTRIBUTE_NAME = SessionLocaleHolder.class
+            .getName() + ".ATTRIBUTE_NAME";
 
-	@Override
-	public void setLocale(Locale locale) {
-		RequestContextHolder.getRequestAttributes().setAttribute(
-				ATTRIBUTE_NAME, locale, RequestAttributes.SCOPE_SESSION);
-	}
+    @Override
+    public void setLocale(Locale locale) {
+        RequestContextHolder.getRequestAttributes().setAttribute(
+                ATTRIBUTE_NAME, locale, RequestAttributes.SCOPE_SESSION);
+    }
 
-	@Override
-	public Locale getLocale() {
-		Locale locale = (Locale) RequestContextHolder.getRequestAttributes()
-				.getAttribute(ATTRIBUTE_NAME, RequestAttributes.SCOPE_SESSION);
-		if (locale == null) {
-			locale = Locale.ROOT;
-		}
-		return locale;
-	}
+    @Override
+    public Locale getLocale() {
+        Locale locale = (Locale) RequestContextHolder.getRequestAttributes()
+                .getAttribute(ATTRIBUTE_NAME, RequestAttributes.SCOPE_SESSION);
+        if (locale == null) {
+            locale = Locale.ROOT;
+        }
+        return locale;
+    }
 
 }

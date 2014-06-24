@@ -15,29 +15,29 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class SimpleConstraintViolationDisplayer extends Composite implements ConstraintViolationDisplayer {
 
-	private static SimpleConstraintViolationDisplayerUiBinder uiBinder = GWT
-			.create(SimpleConstraintViolationDisplayerUiBinder.class);
+    private static SimpleConstraintViolationDisplayerUiBinder uiBinder = GWT
+            .create(SimpleConstraintViolationDisplayerUiBinder.class);
 
-	interface SimpleConstraintViolationDisplayerUiBinder extends
-			UiBinder<Widget, SimpleConstraintViolationDisplayer> {
-	}
+    interface SimpleConstraintViolationDisplayerUiBinder extends
+            UiBinder<Widget, SimpleConstraintViolationDisplayer> {
+    }
 
-	@UiField FlowPanel container;
+    @UiField FlowPanel container;
 
-	public SimpleConstraintViolationDisplayer() {
-		initWidget(uiBinder.createAndBindUi(this));
-	}
+    public SimpleConstraintViolationDisplayer() {
+        initWidget(uiBinder.createAndBindUi(this));
+    }
 
-	@Override
-	public void reset() {
-		container.clear();
-	}
+    @Override
+    public void reset() {
+        container.clear();
+    }
 
-	@Override
-	public void setConstraintViolations(Set<ConstraintViolation<?>> violations) {
-		container.clear();
-		for (ConstraintViolation<?> violation : violations) {
-			container.add(new Label(violation.getMessage()));
-		}
-	}
+    @Override
+    public void setConstraintViolations(Set<ConstraintViolation<?>> violations) {
+        container.clear();
+        for (ConstraintViolation<?> violation : violations) {
+            container.add(new Label(violation.getMessage()));
+        }
+    }
 }

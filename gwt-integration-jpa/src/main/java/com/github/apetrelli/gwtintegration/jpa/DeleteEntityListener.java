@@ -10,15 +10,15 @@ import com.github.apetrelli.gwtintegration.deletable.Deletable;
  */
 public class DeleteEntityListener {
 
-	/**
-	 * Marks an entity as deleted after a remove.
-	 * 
-	 * @param target The object to mark.
-	 */
-	@PostRemove
-	public void markAsDeleted(Object target) {
-		if (target instanceof Deletable) {
-			((Deletable) target).markAsDeleted();
-		}
-	}
+    /**
+     * Marks an entity as deleted after a remove.
+     *
+     * @param target The object to mark.
+     */
+    @PostRemove
+    public void markAsDeleted(Object target) {
+        if (target instanceof Deletable) {
+            ((Deletable) target).markAsDeleted();
+        }
+    }
 }

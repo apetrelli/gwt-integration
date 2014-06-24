@@ -12,16 +12,16 @@ import com.github.apetrelli.gwtintegration.deletable.Deletable;
 @MappedSuperclass
 public abstract class AbstractDeletable implements Deletable {
 
-	@Transient
-	private boolean deleted = false;
-	
-	@Override
-	public void markAsDeleted() {
-		deleted = true;
-	}
-	
-	@Override
-	public boolean isDeleted() {
-		return deleted;
-	}
+    @Transient
+    private boolean deleted = false;
+
+    @Override
+    public void markAsDeleted() {
+        deleted = true;
+    }
+
+    @Override
+    public boolean isDeleted() {
+        return deleted;
+    }
 }

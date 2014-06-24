@@ -11,27 +11,27 @@ import javax.servlet.ServletContext;
  */
 public class StackTraceDeobfuscator extends com.google.gwt.core.server.StackTraceDeobfuscator {
 
-	private String symbolMapsDirectory;
-	
-	private ServletContext servletContext;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param symbolMapsDirectory The main directory containing symbol maps.
-	 * @param servletContext The Servlet context.
-	 */
-	public StackTraceDeobfuscator(String symbolMapsDirectory, ServletContext servletContext) {
-		this.symbolMapsDirectory = symbolMapsDirectory;
-		this.servletContext = servletContext;
-	}
+    private String symbolMapsDirectory;
 
-	@Override
-	protected InputStream openInputStream(String fileName) throws IOException {
-		InputStream stream = servletContext.getResourceAsStream(symbolMapsDirectory + "/" + fileName);
-		if (stream == null) {
-			throw new IOException("Cannot find symbol map file: " + fileName);
-		}
-		return stream;
-	}
+    private ServletContext servletContext;
+
+    /**
+     * Constructor.
+     *
+     * @param symbolMapsDirectory The main directory containing symbol maps.
+     * @param servletContext The Servlet context.
+     */
+    public StackTraceDeobfuscator(String symbolMapsDirectory, ServletContext servletContext) {
+        this.symbolMapsDirectory = symbolMapsDirectory;
+        this.servletContext = servletContext;
+    }
+
+    @Override
+    protected InputStream openInputStream(String fileName) throws IOException {
+        InputStream stream = servletContext.getResourceAsStream(symbolMapsDirectory + "/" + fileName);
+        if (stream == null) {
+            throw new IOException("Cannot find symbol map file: " + fileName);
+        }
+        return stream;
+    }
 }

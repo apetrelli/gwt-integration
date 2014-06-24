@@ -9,5 +9,5 @@ import com.google.web.bindery.requestfactory.shared.Service;
 @Service(value = LocaleService.class, locator = GwtServiceLocator.class)
 public interface LocaleRequest extends RequestContext {
 
-	Request<Void> setLocale(String localeCode);
+    Request<Void> setLocale(String localeCode);
 }

@@ -30,81 +30,81 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 public class ValueDateBox extends DateBox implements TakesParseableValue<Date>, IsParseableEditor<ValueDateBox, Date> {
-	private static final DefaultParsingFormat DEFAULT_FORMAT = GWT
-			.create(DefaultParsingFormat.class);
-	
-	private ParsingFormat format;
-	
-	private ParseableValueEditor<ValueDateBox, Date> editor;
+    private static final DefaultParsingFormat DEFAULT_FORMAT = GWT
+            .create(DefaultParsingFormat.class);
 
-	public ValueDateBox() {
-		this(new DatePicker(), null, DEFAULT_FORMAT);
-	}
+    private ParsingFormat format;
 
-	public ValueDateBox(DatePicker picker, Date date, ParsingFormat format) {
-		super(picker, date, format);
-		this.format = format;
-	}
+    private ParseableValueEditor<ValueDateBox, Date> editor;
 
-	@Override
-	public Date getValueOrThrow() throws ParseException {
-		String text = getTextBox().getText().trim();
-	    return format.parseOrThrow(text);
-	}
-	
-	public void setFormat(Format format) {
-		super.setFormat(format);
-		this.format = (ParsingFormat) format;
-	}
-	
-	@Override
-	public String getUnparsedText() {
-		return getTextBox().getText().trim();
-	}
-	
-	@Override
-	public ParseableValueEditor<ValueDateBox, Date> asEditor() {
-		if (editor == null) {
-			editor = ParseableValueEditor.of(this);
-		}
-		return editor;
-	}
-	
-	@Override
-	public ParseableValueEditor<ValueDateBox, Date> asParseableEditor() {
-		return asEditor();
-	}
+    public ValueDateBox() {
+        this(new DatePicker(), null, DEFAULT_FORMAT);
+    }
 
-	public interface ParsingFormat extends DateBox.Format {
+    public ValueDateBox(DatePicker picker, Date date, ParsingFormat format) {
+        super(picker, date, format);
+        this.format = format;
+    }
 
-		public Date parseOrThrow(String text) throws ParseException;
-	}
+    @Override
+    public Date getValueOrThrow() throws ParseException {
+        String text = getTextBox().getText().trim();
+        return format.parseOrThrow(text);
+    }
 
-	public static class DefaultParsingFormat extends DateBox.DefaultFormat implements
-			ParsingFormat {
+    public void setFormat(Format format) {
+        super.setFormat(format);
+        this.format = (ParsingFormat) format;
+    }
 
-		public DefaultParsingFormat() {
-		}
+    @Override
+    public String getUnparsedText() {
+        return getTextBox().getText().trim();
+    }
 
-		/**
-		 * @param arg0
-		 */
-		public DefaultParsingFormat(DateTimeFormat format) {
-			super(format);
-		}
+    @Override
+    public ParseableValueEditor<ValueDateBox, Date> asEditor() {
+        if (editor == null) {
+            editor = ParseableValueEditor.of(this);
+        }
+        return editor;
+    }
 
-		@Override
-		public Date parseOrThrow(String dateText) throws ParseException {
-			Date date = null;
-			try {
-				if (dateText.length() > 0) {
-					date = getDateTimeFormat().parseStrict(dateText);
-				}
-			} catch (IllegalArgumentException exception) {
-				throw new ParseWithCauseException(dateText, 0, exception);
-			}
-			return date;
-		}
+    @Override
+    public ParseableValueEditor<ValueDateBox, Date> asParseableEditor() {
+        return asEditor();
+    }
 
-	}
+    public interface ParsingFormat extends DateBox.Format {
+
+        public Date parseOrThrow(String text) throws ParseException;
+    }
+
+    public static class DefaultParsingFormat extends DateBox.DefaultFormat implements
+            ParsingFormat {
+
+        public DefaultParsingFormat() {
+        }
+
+        /**
+         * @param arg0
+         */
+        public DefaultParsingFormat(DateTimeFormat format) {
+            super(format);
+        }
+
+        @Override
+        public Date parseOrThrow(String dateText) throws ParseException {
+            Date date = null;
+            try {
+                if (dateText.length() > 0) {
+                    date = getDateTimeFormat().parseStrict(dateText);
+                }
+            } catch (IllegalArgumentException exception) {
+                throw new ParseWithCauseException(dateText, 0, exception);
+            }
+            return date;
+        }
+
+    }
 }

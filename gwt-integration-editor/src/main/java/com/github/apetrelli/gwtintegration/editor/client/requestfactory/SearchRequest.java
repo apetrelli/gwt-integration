@@ -9,5 +9,5 @@ import com.google.web.bindery.requestfactory.shared.ValueProxy;
 
 public interface SearchRequest<T extends EntityProxy, F extends ValueProxy> extends RequestContext {
 
-	Request<List<T>> search(F filter);
+    Request<List<T>> search(F filter);
 }
