@@ -165,7 +165,8 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
         if (genericDisplayer != null) {
             Set<ConstraintViolation<?>> genericViolations = new LinkedHashSet<ConstraintViolation<?>>();
             for (ConstraintViolation<?> violation : violations) {
-                if (violation.getPropertyPath().iterator().next().getName() == null) {
+            	String path = violation.getPropertyPath().toString(); // GWT does not support path iterator!
+				if (path == null || path.isEmpty()) {
                     genericViolations.add(violation);
                 }
             }
