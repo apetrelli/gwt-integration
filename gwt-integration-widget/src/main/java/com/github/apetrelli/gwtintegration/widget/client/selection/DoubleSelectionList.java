@@ -12,12 +12,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.github.apetrelli.gwtintegration.cellview.client.builder.CellTableWithListDataBuilder;
-import com.github.apetrelli.gwtintegration.editor.client.IsParseableEditor;
 import com.github.apetrelli.gwtintegration.editor.client.ParseableValueEditor;
 import com.github.apetrelli.gwtintegration.editor.client.TakesParseableValue;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.editor.client.Editor;
 import com.google.gwt.editor.client.IsEditor;
+import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
@@ -38,8 +37,7 @@ import com.google.gwt.view.client.ProvidesKey;
 
 public class DoubleSelectionList<T> extends Composite implements
         TakesParseableValue<Set<T>>,
-        IsParseableEditor<DoubleSelectionList<T>, Set<T>>,
-        IsEditor<Editor<Set<T>>>{
+        IsEditor<LeafValueEditor<Set<T>>>{
 
     private static Resources DEFAULT_RESOURCES;
 
@@ -197,11 +195,6 @@ public class DoubleSelectionList<T> extends Composite implements
     @Override
     public Set<T> getValue() {
         return new LinkedHashSet<T>(selectedDataProvider.getList());
-    }
-
-    @Override
-    public ParseableValueEditor<DoubleSelectionList<T>, Set<T>> asParseableEditor() {
-        return asEditor();
     }
 
     @Override

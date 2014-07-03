@@ -16,11 +16,9 @@
 
 package com.github.apetrelli.gwtintegration.editor.client.widget;
 
-
 import java.text.ParseException;
 import java.util.Date;
 
-import com.github.apetrelli.gwtintegration.editor.client.IsParseableEditor;
 import com.github.apetrelli.gwtintegration.editor.client.ParseableValueEditor;
 import com.github.apetrelli.gwtintegration.editor.client.TakesParseableValue;
 import com.github.apetrelli.gwtintegration.editor.shared.ParseWithCauseException;
@@ -29,7 +27,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
-public class ValueDateBox extends DateBox implements TakesParseableValue<Date>, IsParseableEditor<ValueDateBox, Date> {
+public class ValueDateBox extends DateBox implements TakesParseableValue<Date> {
     private static final DefaultParsingFormat DEFAULT_FORMAT = GWT
             .create(DefaultParsingFormat.class);
 
@@ -68,11 +66,6 @@ public class ValueDateBox extends DateBox implements TakesParseableValue<Date>, 
             editor = ParseableValueEditor.of(this);
         }
         return editor;
-    }
-
-    @Override
-    public ParseableValueEditor<ValueDateBox, Date> asParseableEditor() {
-        return asEditor();
     }
 
     public interface ParsingFormat extends DateBox.Format {

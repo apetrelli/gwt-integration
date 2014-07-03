@@ -18,15 +18,17 @@ package com.github.apetrelli.gwtintegration.editor.client.widget;
 
 import java.util.List;
 
-import com.github.apetrelli.gwtintegration.editor.client.IsParseableEditor;
 import com.github.apetrelli.gwtintegration.editor.client.ParseableValueEditor;
-import com.github.apetrelli.gwtintegration.editor.client.TakesParseableValue;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.editor.client.Editor;
+import com.google.gwt.editor.client.EditorDelegate;
 import com.google.gwt.editor.client.EditorError;
+import com.google.gwt.editor.client.HasEditorDelegate;
 import com.google.gwt.editor.client.HasEditorErrors;
 import com.google.gwt.editor.client.IsEditor;
+import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiChild;
 import com.google.gwt.uibinder.client.UiConstructor;
@@ -63,9 +65,9 @@ import com.google.gwt.user.client.ui.Widget;
  * @param <T>
  *            the type of data being edited
  */
-public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, T> & TakesParseableValue<T>, T>
+public class LeafValueEditorDecorator<W extends IsWidget & IsEditor<? extends LeafValueEditor<T>>, T>
         extends Composite implements HasEditorErrors<T>,
-        IsEditor<ParseableValueEditor<W, T>> {
+        IsEditor<LeafValueEditor<T>>, HasEditorDelegate<T> {
     interface Binder extends UiBinder<Widget, LeafValueEditorDecorator<?, ?>> {
         Binder BINDER = GWT.create(Binder.class);
     }
@@ -76,7 +78,7 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
     @UiField
     DivElement errorLabel;
 
-    private ParseableValueEditor<W, T> editor;
+    private LeafValueEditor<T> editor;
 
     /**
      * Constructs a LeafValueEditorDecorator.
@@ -92,13 +94,11 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
      *
      * @param widget
      *            the widget
-     * @param editor
-     *            the editor
      */
-    public LeafValueEditorDecorator(W widget, ParseableValueEditor<W, T> editor) {
+    public LeafValueEditorDecorator(W widget) {
         this();
         contents.add(widget);
-        this.editor = editor;
+        this.editor = widget.asEditor();
     }
 
     /**
@@ -107,7 +107,7 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
      * @return a {@link ParseableValueEditor} instance
      * @see #setEditor(ParseableValueEditor)
      */
-    public ParseableValueEditor<W, T> asEditor() {
+    public LeafValueEditor<T> asEditor() {
         return editor;
     }
 
@@ -118,7 +118,7 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
      *            a {@link ParseableValueEditor} instance
      * @see #asEditor()
      */
-    public void setEditor(ParseableValueEditor<W, T> editor) {
+    public void setEditor(LeafValueEditor<T> editor) {
         this.editor = editor;
     }
 
@@ -132,7 +132,7 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
     @UiChild(limit = 1, tagname = "valuebox")
     public void setValueBox(W widget) {
         contents.add(widget);
-        setEditor(widget.asParseableEditor());
+        setEditor(widget.asEditor());
     }
 
     /**
@@ -146,7 +146,8 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
     public void showErrors(List<EditorError> errors) {
         StringBuilder sb = new StringBuilder();
         for (EditorError error : errors) {
-            if (error.getEditor().equals(editor)) {
+            Editor<?> errorEditor = error.getEditor();
+            if (errorEditor.equals(editor) || errorEditor.equals(this)) {
                 sb.append("\n").append(error.getMessage());
             }
         }
@@ -159,5 +160,14 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsParseableEditor<W, 
 
         errorLabel.setInnerText(sb.substring(1));
         errorLabel.getStyle().setDisplay(Display.INLINE_BLOCK);
+    }
+
+    @Override
+    public void setDelegate(EditorDelegate<T> delegate) {
+        if (editor instanceof HasEditorDelegate) {
+            @SuppressWarnings({ "unchecked", "rawtypes" })
+            HasEditorDelegate<T> hasDelegate = (HasEditorDelegate) editor;
+            hasDelegate.setDelegate(delegate);
+        }
     }
 }
