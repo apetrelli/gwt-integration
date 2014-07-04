@@ -147,7 +147,7 @@ public class LeafValueEditorDecorator<W extends IsWidget & IsEditor<? extends Le
         StringBuilder sb = new StringBuilder();
         for (EditorError error : errors) {
             Editor<?> errorEditor = error.getEditor();
-            if (errorEditor.equals(editor) || errorEditor.equals(this)) {
+            if (errorEditor.equals(this)) {
                 sb.append("\n").append(error.getMessage());
             }
         }
