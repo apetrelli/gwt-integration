@@ -8,6 +8,7 @@ import java.util.List;
 import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionColumn;
 import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionFieldUpdater;
 import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
@@ -37,11 +38,19 @@ public class CellTableWithListDataBuilder<T> {
 
     private CellPreviewEvent.Handler<T> selectionEventManager;
 
+    private String tableWidth;
+
+    private boolean fixedWidth = false;
+
     private List<String> columnTitles;
 
     private List<Column<T, ?>> columns;
 
     private List<Comparator<T>> comparators;
+
+    private List<Double> columnSizes;
+
+    private List<Unit> columnSizeUnits;
 
     private CellTable<T> dataTable;
 
@@ -49,6 +58,8 @@ public class CellTableWithListDataBuilder<T> {
         columnTitles = new ArrayList<String>();
         columns = new ArrayList<Column<T,?>>();
         comparators = new ArrayList<Comparator<T>>();
+        columnSizes = new ArrayList<Double>();
+        columnSizeUnits = new ArrayList<Unit>();
     }
 
     public static <T> CellTableWithListDataBuilder<T> create() {
@@ -109,15 +120,34 @@ public class CellTableWithListDataBuilder<T> {
         return this;
     }
 
-    public CellTableWithListDataBuilder<T> addColumn(String title, Column<T, ?> column, Comparator<T> comparator) {
-        columnTitles.add(title);
-        columns.add(column);
-        comparators.add(comparator);
+    public CellTableWithListDataBuilder<T> setWidth(String width, boolean fixedLayout) {
+        tableWidth = width;
+        fixedWidth = fixedLayout;
         return this;
     }
 
+    public CellTableWithListDataBuilder<T> addColumn(String title,
+            Column<T, ?> column, Comparator<T> comparator, Double size,
+            Unit unit) {
+        columnTitles.add(title);
+        columns.add(column);
+        comparators.add(comparator);
+        if (size != null && unit != null) {
+            columnSizes.add(size);
+            columnSizeUnits.add(unit);
+        } else {
+            columnSizes.add(null);
+            columnSizeUnits.add(null);
+        }
+        return this;
+    }
+
+    public CellTableWithListDataBuilder<T> addColumn(String title, Column<T, ?> column, Comparator<T> comparator) {
+        return addColumn(title, column, comparator, null, null);
+    }
+
     public CellTableWithListDataBuilder<T> addColumn(String title, Column<T, ?> column) {
-        return addColumn(title, column, null);
+        return addColumn(title, column, null, null, null);
     }
 
     public CellTableWithListDataBuilder<T> addSelectionCellboxColumn() {
@@ -159,19 +189,30 @@ public class CellTableWithListDataBuilder<T> {
     }
 
     public void connect() {
+        if (tableWidth != null) {
+            dataTable.setWidth(tableWidth, fixedWidth);
+        }
         Iterator<String> titleIt = columnTitles.iterator();
         Iterator<Column<T, ?>> columnIt = columns.iterator();
         Iterator<Comparator<T>> comparatorIt = comparators.iterator();
+        Iterator<Double> sizeIt = columnSizes.iterator();
+        Iterator<Unit> unitIt = columnSizeUnits.iterator();
         ListHandler<T> handler = new ListHandler<T>(dataProvider.getList());
         while (titleIt.hasNext()) {
             String title = titleIt.next();
             Column<T, ?> column = columnIt.next();
             Comparator<T> comparator = comparatorIt.next();
+            Double size = sizeIt.next();
+            Unit unit = unitIt.next();
             boolean sortable = comparator != null;
             column.setSortable(sortable);
             dataTable.addColumn(column, title);
             if (sortable) {
                 handler.setComparator(column, comparator);
+            }
+            // Setting column size has sense only on fixed layout.
+            if (fixedWidth && size != null && unit != null) {
+                dataTable.setColumnWidth(column, size, unit);
             }
         }
         dataProvider.addDataDisplay(dataTable);
