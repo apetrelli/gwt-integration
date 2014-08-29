@@ -9,8 +9,10 @@ import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionColum
 import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionFieldUpdater;
 import com.google.gwt.cell.client.CheckboxCell;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.cellview.client.AbstractCellTable;
 import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.CellTableBuilder;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.RowStyles;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
@@ -23,6 +25,10 @@ import com.google.gwt.view.client.SelectionModel;
 import com.google.gwt.view.client.DefaultSelectionEventManager.CheckboxEventTranslator;
 
 public class CellTableWithListDataBuilder<T> {
+
+    public interface CellTableBuilderFactory<T> {
+        CellTableBuilder<T> create(AbstractCellTable<T> cellTable);
+    }
 
     private ProvidesKey<T> keyProvider;
 
@@ -37,6 +43,8 @@ public class CellTableWithListDataBuilder<T> {
     private SelectionModel<T> selectionModel;
 
     private CellPreviewEvent.Handler<T> selectionEventManager;
+
+    private CellTableBuilderFactory<T> cellTableBuilderFactory;
 
     private String tableWidth;
 
@@ -117,6 +125,12 @@ public class CellTableWithListDataBuilder<T> {
     public CellTableWithListDataBuilder<T> setSelectionEventManager(
             CellPreviewEvent.Handler<T> selectionEventManager) {
         this.selectionEventManager = selectionEventManager;
+        return this;
+    }
+
+    public CellTableWithListDataBuilder<T> setCellTableBuilderFactory(
+            CellTableBuilderFactory<T> cellTableBuilderFactory) {
+        this.cellTableBuilderFactory = cellTableBuilderFactory;
         return this;
     }
 
@@ -222,6 +236,9 @@ public class CellTableWithListDataBuilder<T> {
         dataTable.addColumnSortHandler(handler);
         if (selectionModel != null) {
             dataTable.setSelectionModel(selectionModel, selectionEventManager);
+        }
+        if (cellTableBuilderFactory != null) {
+            dataTable.setTableBuilder(cellTableBuilderFactory.create(dataTable));
         }
         dataProvider.flush();
     }
