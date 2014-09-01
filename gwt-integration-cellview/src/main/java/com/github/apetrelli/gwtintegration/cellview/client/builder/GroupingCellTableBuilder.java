@@ -19,6 +19,8 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
         I getGroupId(T obj);
 
         String renderGroup(T obj);
+
+        String getClassName(T obj);
     }
 
     private I id = null;
@@ -27,16 +29,13 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
 
     private GroupRenderer<T, I> renderer;
 
-    private String groupRowClassName;
-
     private DefaultCellTableBuilder<T> innerBuilder;
 
     public GroupingCellTableBuilder(
-            AbstractCellTable<T> cellTable, GroupRenderer<T, I> renderer, String groupRowClassName) {
+            AbstractCellTable<T> cellTable, GroupRenderer<T, I> renderer) {
         innerBuilder = new DefaultCellTableBuilder<T>(cellTable);
         columnCount = cellTable.getColumnCount();
         this.renderer = renderer;
-        this.groupRowClassName = groupRowClassName;
     }
 
     @Override
@@ -46,7 +45,7 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
             id = newId;
             TableRowBuilder tr = innerBuilder.startRow();
             TableCellBuilder td = tr.startTD();
-            td.colSpan(columnCount).className(groupRowClassName)
+            td.colSpan(columnCount).className(renderer.getClassName(rowValue))
                     .text(renderer.renderGroup(rowValue)).endTD();
             tr.endTR();
         }
