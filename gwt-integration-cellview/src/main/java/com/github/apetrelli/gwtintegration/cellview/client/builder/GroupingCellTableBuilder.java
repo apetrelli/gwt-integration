@@ -1,7 +1,9 @@
 package com.github.apetrelli.gwtintegration.cellview.client.builder;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gwt.cell.client.Cell.Context;
 import com.google.gwt.cell.client.HasCell;
@@ -83,6 +85,10 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
 
     private DefaultCellTableBuilder<T> innerBuilder;
 
+    private boolean rebuildingAllRows = false;
+
+    private Set<Integer> rowsWithGroup = new HashSet<Integer>();
+
     public GroupingCellTableBuilder(
             AbstractCellTable<T> cellTable, GroupRenderer<T, I> renderer) {
         this(cellTable, renderer, null);
@@ -101,8 +107,10 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
     public void buildRow(T rowValue, int absRowIndex) {
         if (renderer != null) {
             I newId = renderer.getGroupId(rowValue);
-            if (!newId.equals(id)) {
+            boolean showCategory = rebuildingAllRows ? !newId.equals(id) : rowsWithGroup.contains(absRowIndex);
+            if (showCategory) {
                 id = newId;
+                rowsWithGroup.add(absRowIndex);
                 TableRowBuilder tr = innerBuilder.startRow();
                 TableCellBuilder td = tr.startTD();
                 td.colSpan(columnCount).className(renderer.getClassName(rowValue))
@@ -153,6 +161,9 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
 
     @Override
     public int getRowValueIndex(TableRowElement row) {
+        if (row == null) {
+            return -1;
+        }
         return innerBuilder.getRowValueIndex(row);
     }
 
@@ -168,6 +179,10 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
 
     @Override
     public void start(boolean isRebuildingAllRows) {
+        rebuildingAllRows = isRebuildingAllRows;
+        if (rebuildingAllRows) {
+            rowsWithGroup.clear();
+        }
         id = null;
         innerBuilder.start(isRebuildingAllRows);
     }

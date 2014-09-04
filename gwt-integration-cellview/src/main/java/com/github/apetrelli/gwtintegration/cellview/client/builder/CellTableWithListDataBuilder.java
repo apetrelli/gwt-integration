@@ -165,20 +165,32 @@ public class CellTableWithListDataBuilder<T> {
     }
 
     public CellTableWithListDataBuilder<T> addSelectionCellboxColumn() {
+        return addSelectionCellboxColumn(null, null);
+    }
+
+    public CellTableWithListDataBuilder<T> addSelectionCellboxColumn(Double size,
+            Unit unit) {
         Column<T, Boolean> checkColumn = new SelectionColumn<T>(new CheckboxCell(true, true), selectionModel);
         CheckboxEventTranslator<T> translator = new DefaultSelectionEventManager.CheckboxEventTranslator<T>(
                 getColumnListSize());
-        addSelectionColumn(checkColumn, translator);
+        addSelectionColumn(checkColumn, translator, size, unit);
         return this;
     }
 
     public CellTableWithListDataBuilder<T> addSelectionColumn(
             Column<T, Boolean> checkColumn,
             CheckboxEventTranslator<T> translator) {
+        return addSelectionColumn(checkColumn, translator, null, null);
+    }
+
+    public CellTableWithListDataBuilder<T> addSelectionColumn(
+            Column<T, Boolean> checkColumn,
+            CheckboxEventTranslator<T> translator, Double size,
+            Unit unit) {
         setSelectionEventManager(DefaultSelectionEventManager
                 .<T> createCustomManager(translator));
         checkColumn.setFieldUpdater(new SelectionFieldUpdater<T>(selectionModel));
-        addColumn("", checkColumn);
+        addColumn("", checkColumn, null, size, unit);
         return this;
     }
 
