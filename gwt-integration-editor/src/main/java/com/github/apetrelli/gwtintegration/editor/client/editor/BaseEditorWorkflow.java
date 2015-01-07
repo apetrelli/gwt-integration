@@ -24,7 +24,11 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
     private final class ConfigurableReceiver extends Receiver<V> {
         @Override
         public void onFailure(ServerFailure error) {
-            onServerFailure(this, error);
+            try {
+                onServerFailure(this, error);
+            } finally {
+                restart();
+            }
         }
 
         public void callParentOnFailure(ServerFailure error) {
@@ -123,6 +127,7 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
     protected abstract void process(V response);
 
     protected void initialize() {
+        currentRequest = null;
         currentRequestContext = getNewRequestContext();
         driver.initialize(requestFactory, editor);
         if (genericDisplayer != null) {
@@ -159,6 +164,10 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
 
     protected void onServerFailure(Receiver<V> receiver, ServerFailure error) {
         ((ConfigurableReceiver) receiver).callParentOnFailure(error);
+    }
+    
+    protected void restart() {
+        start();
     }
 
     private void fillGenericViolations(Set<ConstraintViolation<?>> violations) {

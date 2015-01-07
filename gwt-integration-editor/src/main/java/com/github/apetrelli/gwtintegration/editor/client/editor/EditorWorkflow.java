@@ -10,6 +10,8 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 
 public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudRequest<T, I>, E extends Editor<T>, I> extends BaseEditorWorkflow<T, R, T, E> {
 
+    private I currentId;
+    
     /**
      * @param driver
      */
@@ -25,6 +27,7 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
     }
 
     public void start(I id) {
+        currentId = id;
         initialize();
         if (id != null) {
             loadAndEdit(id);
@@ -79,6 +82,11 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
     @Override
     protected void process(T response) {
         afterSave(response);
+    }
+    
+    @Override
+    protected void restart() {
+        start(currentId);
     }
 
     protected abstract R getNewRequestContext();
