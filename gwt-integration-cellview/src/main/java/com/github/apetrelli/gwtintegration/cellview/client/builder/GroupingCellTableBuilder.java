@@ -134,7 +134,11 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
                         if (columnClassName != null) {
                             td.className(columnClassName);
                         }
-                        td.colSpan(value.getColspan()).text(value.getRenderedValue())
+                        String renderedValue = value.getRenderedValue();
+                        if (renderedValue == null) {
+                            renderedValue = "";
+                        }
+                        td.colSpan(value.getColspan()).text(renderedValue)
                                 .endTD();
                     }
                     tr.endTR();
