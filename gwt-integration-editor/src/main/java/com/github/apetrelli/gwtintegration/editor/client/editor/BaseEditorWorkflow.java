@@ -117,6 +117,10 @@ public abstract class BaseEditorWorkflow<V, R extends RequestContext, T extends 
     public T getCurrentEntity() {
         return currentEntity;
     }
+    
+    public boolean isDirty() {
+        return driver.isDirty();
+    }
 
     protected abstract Request<V> getNewExecuteRequest(R requestContext, T entity);
 
