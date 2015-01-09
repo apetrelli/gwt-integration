@@ -61,6 +61,10 @@ public class CellTableWithListDataBuilder<T> {
     private List<Unit> columnSizeUnits;
 
     private CellTable<T> dataTable;
+    
+    private String overallCellStyles;
+    
+    private boolean selectionColumnAdded = false;
 
     private CellTableWithListDataBuilder() {
         columnTitles = new ArrayList<String>();
@@ -106,6 +110,11 @@ public class CellTableWithListDataBuilder<T> {
 
     public CellTableWithListDataBuilder<T> setRowStyles(RowStyles<T> rowStyles) {
         this.rowStyles = rowStyles;
+        return this;
+    }
+    
+    public CellTableWithListDataBuilder<T> setOverallCellStyles(String overallCellStyles) {
+        this.overallCellStyles = overallCellStyles;
         return this;
     }
 
@@ -191,6 +200,7 @@ public class CellTableWithListDataBuilder<T> {
                 .<T> createCustomManager(translator));
         checkColumn.setFieldUpdater(new SelectionFieldUpdater<T>(selectionModel));
         addColumn("", checkColumn, null, size, unit);
+        selectionColumnAdded = true;
         return this;
     }
 
@@ -224,6 +234,7 @@ public class CellTableWithListDataBuilder<T> {
         Iterator<Double> sizeIt = columnSizes.iterator();
         Iterator<Unit> unitIt = columnSizeUnits.iterator();
         ListHandler<T> handler = new ListHandler<T>(dataProvider.getList());
+        int i = 0;
         while (titleIt.hasNext()) {
             String title = titleIt.next();
             Column<T, ?> column = columnIt.next();
@@ -232,6 +243,9 @@ public class CellTableWithListDataBuilder<T> {
             Unit unit = unitIt.next();
             boolean sortable = comparator != null;
             column.setSortable(sortable);
+            if (overallCellStyles != null && (!selectionColumnAdded || i > 0)) {
+                column.setCellStyleNames(overallCellStyles);
+            }
             dataTable.addColumn(column, title);
             if (sortable) {
                 handler.setComparator(column, comparator);
@@ -240,6 +254,7 @@ public class CellTableWithListDataBuilder<T> {
             if (fixedWidth && size != null && unit != null) {
                 dataTable.setColumnWidth(column, size, unit);
             }
+            i++;
         }
         dataProvider.addDataDisplay(dataTable);
         pager.setDisplay(dataTable);
