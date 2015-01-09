@@ -12,6 +12,7 @@ import com.google.gwt.dom.builder.shared.TableRowBuilder;
 import com.google.gwt.dom.builder.shared.TableSectionBuilder;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.TableRowElement;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.cellview.client.AbstractCellTable;
 import com.google.gwt.user.cellview.client.CellTableBuilder;
 import com.google.gwt.user.cellview.client.DefaultCellTableBuilder;
@@ -28,19 +29,37 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
 
     public static class ColumnValue {
         private String renderedValue;
+        
+        private SafeHtml html;
 
         private String className;
 
         private int colspan;
 
         public ColumnValue(String renderedValue, String className, int colspan) {
+            this(renderedValue, null, className, colspan);
+        }
+        
+        public ColumnValue(SafeHtml html, String className, int colspan) {
+            this(null, html, className, colspan);
+        }
+
+        private ColumnValue(String renderedValue, SafeHtml html,
+                String className, int colspan) {
             this.renderedValue = renderedValue;
+            this.html = html;
             this.className = className;
             this.colspan = colspan;
         }
 
+
+
         public String getRenderedValue() {
             return renderedValue;
+        }
+        
+        public SafeHtml getHtml() {
+            return html;
         }
 
         public String getClassName() {
@@ -135,11 +154,18 @@ public class GroupingCellTableBuilder<T, I> implements CellTableBuilder<T> {
                             td.className(columnClassName);
                         }
                         String renderedValue = value.getRenderedValue();
+                        td = td.colSpan(value.getColspan());
                         if (renderedValue == null) {
-                            renderedValue = "";
+                            SafeHtml html = value.getHtml();
+                            if (html != null) {
+                                td.html(html);
+                            } else {
+                                td.text("");
+                            }
+                        } else {
+                            td.text(renderedValue);
                         }
-                        td.colSpan(value.getColspan()).text(renderedValue)
-                                .endTD();
+                        td.endTD();
                     }
                     tr.endTR();
                 }
