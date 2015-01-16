@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import com.github.apetrelli.gwtintegration.cellview.client.widget.CheckboxHeader;
 import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionColumn;
 import com.github.apetrelli.gwtintegration.cellview.client.widget.SelectionFieldUpdater;
 import com.google.gwt.cell.client.CheckboxCell;
@@ -14,7 +15,9 @@ import com.google.gwt.user.cellview.client.AbstractPager;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.CellTableBuilder;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.RowStyles;
+import com.google.gwt.user.cellview.client.TextHeader;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.DefaultSelectionEventManager;
@@ -50,7 +53,7 @@ public class CellTableWithListDataBuilder<T> {
 
     private boolean fixedWidth = false;
 
-    private List<String> columnTitles;
+    private List<Header<?>> columnHeaders;
 
     private List<Column<T, ?>> columns;
 
@@ -67,7 +70,7 @@ public class CellTableWithListDataBuilder<T> {
     private boolean selectionColumnAdded = false;
 
     private CellTableWithListDataBuilder() {
-        columnTitles = new ArrayList<String>();
+        columnHeaders = new ArrayList<Header<?>>();
         columns = new ArrayList<Column<T,?>>();
         comparators = new ArrayList<Comparator<T>>();
         columnSizes = new ArrayList<Double>();
@@ -93,8 +96,16 @@ public class CellTableWithListDataBuilder<T> {
         return this;
     }
 
+    public SelectionModel<T> getSelectionModel() {
+        return selectionModel;
+    }
+    
     public ListDataProvider<T> getDataProvider() {
         return dataProvider;
+    }
+    
+    public ProvidesKey<T> getKeyProvider() {
+        return keyProvider;
     }
 
     public CellTableWithListDataBuilder<T> setPager(AbstractPager pager) {
@@ -152,7 +163,12 @@ public class CellTableWithListDataBuilder<T> {
     public CellTableWithListDataBuilder<T> addColumn(String title,
             Column<T, ?> column, Comparator<T> comparator, Double size,
             Unit unit) {
-        columnTitles.add(title);
+        return addColumn(new TextHeader(title), column, comparator, size, unit);
+    }
+
+    public CellTableWithListDataBuilder<T> addColumn(Header<?> header,
+            Column<T, ?> column, Comparator<T> comparator, Double size, Unit unit) {
+        columnHeaders.add(header);
         columns.add(column);
         comparators.add(comparator);
         if (size != null && unit != null) {
@@ -171,6 +187,10 @@ public class CellTableWithListDataBuilder<T> {
 
     public CellTableWithListDataBuilder<T> addColumn(String title, Column<T, ?> column) {
         return addColumn(title, column, null, null, null);
+    }
+
+    public CellTableWithListDataBuilder<T> addColumn(Header<?> header, Column<T, ?> column) {
+        return addColumn(header, column, null, null, null);
     }
 
     public CellTableWithListDataBuilder<T> addSelectionCellboxColumn() {
@@ -196,10 +216,21 @@ public class CellTableWithListDataBuilder<T> {
             Column<T, Boolean> checkColumn,
             CheckboxEventTranslator<T> translator, Double size,
             Unit unit) {
+        return addSelectionColumn(checkColumn, translator, size, unit,
+                true);
+    }
+
+    private CellTableWithListDataBuilder<T> addSelectionColumn(
+            Column<T, Boolean> checkColumn,
+            CheckboxEventTranslator<T> translator, Double size, Unit unit,
+            boolean addSelectAll) {
         setSelectionEventManager(DefaultSelectionEventManager
                 .<T> createCustomManager(translator));
         checkColumn.setFieldUpdater(new SelectionFieldUpdater<T>(selectionModel));
-        addColumn("", checkColumn, null, size, unit);
+        Header<?> header = addSelectAll ? new CheckboxHeader<T>(
+                (MultiSelectionModel<T>) selectionModel, dataProvider)
+                : new TextHeader("");
+        addColumn(header, checkColumn, null, size, unit);
         selectionColumnAdded = true;
         return this;
     }
@@ -228,15 +259,15 @@ public class CellTableWithListDataBuilder<T> {
         if (tableWidth != null) {
             dataTable.setWidth(tableWidth, fixedWidth);
         }
-        Iterator<String> titleIt = columnTitles.iterator();
+        Iterator<Header<?>> headerIt = columnHeaders.iterator();
         Iterator<Column<T, ?>> columnIt = columns.iterator();
         Iterator<Comparator<T>> comparatorIt = comparators.iterator();
         Iterator<Double> sizeIt = columnSizes.iterator();
         Iterator<Unit> unitIt = columnSizeUnits.iterator();
         ListHandler<T> handler = new ListHandler<T>(dataProvider.getList());
         int i = 0;
-        while (titleIt.hasNext()) {
-            String title = titleIt.next();
+        while (headerIt.hasNext()) {
+            Header<?> header = headerIt.next();
             Column<T, ?> column = columnIt.next();
             Comparator<T> comparator = comparatorIt.next();
             Double size = sizeIt.next();
@@ -246,7 +277,7 @@ public class CellTableWithListDataBuilder<T> {
             if (overallCellStyles != null && (!selectionColumnAdded || i > 0)) {
                 column.setCellStyleNames(overallCellStyles);
             }
-            dataTable.addColumn(column, title);
+            dataTable.addColumn(column, header);
             if (sortable) {
                 handler.setComparator(column, comparator);
             }
