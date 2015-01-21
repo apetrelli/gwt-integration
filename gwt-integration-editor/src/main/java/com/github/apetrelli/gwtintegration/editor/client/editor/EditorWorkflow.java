@@ -3,6 +3,7 @@ package com.github.apetrelli.gwtintegration.editor.client.editor;
 import com.github.apetrelli.gwtintegration.editor.client.requestfactory.CrudRequest;
 import com.github.apetrelli.gwtintegration.requestfactory.shared.Receiver;
 import com.google.gwt.editor.client.Editor;
+import com.google.gwt.user.client.History;
 import com.google.web.bindery.requestfactory.gwt.client.RequestFactoryEditorDriver;
 import com.google.web.bindery.requestfactory.shared.EntityProxy;
 import com.google.web.bindery.requestfactory.shared.Request;
@@ -11,6 +12,8 @@ import com.google.web.bindery.requestfactory.shared.RequestFactory;
 public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudRequest<T, I>, E extends Editor<T>, I> extends BaseEditorWorkflow<T, R, T, E> {
 
     private I currentId;
+    
+    private boolean loaded = false;
     
     /**
      * @param driver
@@ -27,11 +30,13 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
     }
 
     public void start(I id) {
+        loaded = false;
         currentId = id;
         initialize();
         if (id != null) {
             loadAndEdit(id);
         } else {
+            loaded = true;
             createAndEdit();
         }
     }
@@ -55,9 +60,14 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
 
             @Override
             public void onSuccess(T response) {
-                currentRequestContext = getNewRequestContext();
-                currentEntity = currentRequestContext.edit(response);
-                editCurrentEntity();
+                if (response != null) {
+                    loaded = true;
+                    currentRequestContext = getNewRequestContext();
+                    currentEntity = currentRequestContext.edit(response);
+                    editCurrentEntity();
+                } else {
+                    onNoEntityFound();
+                }
             }
         });
     }
@@ -87,6 +97,15 @@ public abstract class EditorWorkflow<T extends EntityProxy, R extends CrudReques
     @Override
     protected void restart() {
         start(currentId);
+    }
+    
+    @Override
+    public boolean isDirty() {
+        return loaded ? super.isDirty() : false;
+    }
+    
+    protected void onNoEntityFound() {
+        History.back(); // Wow this seems dangerous, however, for an exceptional case like this may have sense.
     }
 
     protected abstract R getNewRequestContext();
